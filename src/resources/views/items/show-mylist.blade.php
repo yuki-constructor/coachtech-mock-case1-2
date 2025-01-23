@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>商品一覧</title>
-    <link rel="stylesheet" href="{{ asset('css/product/mylist.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/items/mylist.css') }}" />
   </head>
   <body>
     <header class="header">
@@ -51,26 +51,48 @@
         <a href="#" class="menu__left-link">おすすめ</a>
         <a href="#" class="menu__right-link">マイリスト</a>
       </div>
-      <div class="product-list">
-        <div class="product">
-          <div class="product-image">商品画像</div>
-          <div class="product-name">商品名</div>
+      <div class="item-list">
+
+        {{-- @foreach ($items as $item)
+        
+        <div class="item">
+                  <img class="item-image" src="" alt="">
+        <img class="item-image" src="" alt="">
+                      <div class="item-name">
+                <p>商品名</p>
+            </div>
+          </div> --}}
+
+        {{-- <div class="item">
+                  <img class="item-image" src="{{asset("storage/photos/item_images/".$item->item_image )}}" alt="">
+        <img class="item-image" src="" alt="">
+                      <div class="item-name">
+                <p>{{$item->item_name}}</p>
+            </div>
+          </div> --}}
+
+        {{-- @endforeach --}}
+
+
+        <div class="item">
+          <div class="item-image">商品画像</div>
+          <div class="item-name">商品名</div>
         </div>
-        <div class="product">
-          <div class="product-image">商品画像</div>
-          <div class="product-name">商品名</div>
+        <div class="item">
+          <div class="item-image">商品画像</div>
+          <div class="item-name">商品名</div>
         </div>
-        <div class="product">
-          <div class="product-image">商品画像</div>
-          <div class="product-name">商品名</div>
+        <div class="item">
+          <div class="item-image">商品画像</div>
+          <div class="item-name">商品名</div>
         </div>
-        <div class="product">
-          <div class="product-image">商品画像</div>
-          <div class="product-name">商品名</div>
+        <div class="item">
+          <div class="item-image">商品画像</div>
+          <div class="item-name">商品名</div>
         </div>
-        <div class="product">
-          <div class="product-image">商品画像</div>
-          <div class="product-name">商品名</div>
+        <div class="item">
+          <div class="item-image">商品画像</div>
+          <div class="item-name">商品名</div>
         </div>
       </div>
     </main>
