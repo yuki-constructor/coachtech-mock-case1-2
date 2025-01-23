@@ -32,4 +32,4 @@ yarn-error.log
 /.vscode
 /.zed
 # MySQL データファイルを無視
-docker/mysql/data/
+docker/mysql/data/*

@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\ProductMylistController;
+use App\Http\Controllers\ItemController;
 
 
 // Route::get('/register', function () {
@@ -76,10 +76,39 @@ Route::get('/email/verify/{token}', [EmailVerificationController::class, 'verify
 
 
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
 
-// Route::get('/product/mypage/{id}', [ProductMylistController::class, 'index'])->name('product.mylist');
-Route::get('/product/mylist', [ProductMylistController::class, 'show'])->name('product.mylist');
+// Route::get('/item/mylist/{id}', [itemMylistController::class, 'index'])->name('item.mylist');
+Route::get('/item/mylist', [ItemController::class, 'showMylist'])->name('item.show.mylist');
 
 
-// });
+
+
+
+
+
+// // 検索処理
+// Route::get("/items/search",[ItemController::class,"search"])->name("items.search");
+
+// 商品一覧画面表示
+Route::get("/items",[ItemController::class,"index"])->name("items.index");
+
+// // 商品詳細画面表示
+// Route::get("/item",[ItemController::class,"show"])->name("item.show");
+Route::get("/item/{itemId}",[ItemController::class,"show"])->name("item.show");
+
+// 商品登録画面表示
+Route::get("/items/register",[ItemController::class,"create"])->name("item.create");
+
+// 商品登録処理
+Route::post("/items/register",[ItemController::class,"store"])->name("items.store");
+
+// // 商品編集画面表示
+// Route::get("/items/{itemId}",[ItemController::class,"edit"])->name("items.edit");
+
+
+// // 商品更新処理
+// Route::patch("/items/{itemId}/update",[ItemController::class,"update"])->name("items.update");
+
+
+});

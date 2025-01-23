@@ -56,7 +56,7 @@ class ProfileController extends Controller
             'building' => $profileRequest->input('building'),
         ]);
 
-        return redirect()->route('product.mylist'); // 商品一覧画面（マイリスト）にリダイレクト
+        return redirect()->route('item.mylist'); // 商品一覧画面（マイリスト）にリダイレクト
 
     }
 
