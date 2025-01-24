@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Item;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\ProfileRequest;
@@ -100,10 +101,42 @@ class ProfileController extends Controller
             // 'address' => $addressRequest->input('address'),
             'address' => $profileRequest->input('address'),
             // 'building' => $addressRequest->input('building_name'),
-            'building' => $profileRequest->input('building_name'),
+            'building' => $profileRequest->input('building'),
         ]);
 
         // プロフィール画面にリダイレクト
         return redirect()->route('profile.show');
+    }
+
+
+    // 住所編集画面
+    public function editAddress($itemId)
+    {
+        // $user=Auth::user();
+        $item = Item::findOrFail($itemId);
+
+        return view('profile.edit-address', ['user' => Auth::user(),'item'=>$item]);
+    }
+
+
+    // 住所更新処理
+    public function updateAddress(AddressRequest $addressRequest,$itemId)
+    // public function updateAddress(Request $request)
+    {
+        $user = Auth::user(); // ログイン中のユーザーを取得
+        $item = Item::findOrFail($itemId);
+
+        // 住所情報の更新
+        $user->update([
+            'postal_code' => $addressRequest->input('postal_code'),
+            // 'postal_code' => $request->input('postal_code'),
+            'address' => $addressRequest->input('address'),
+            // 'address' => $request->input('address'),
+            'building' => $addressRequest->input('building'),
+            // 'building' => $request->input('building'),
+        ]);
+
+        // 商品購入画面にリダイレクト
+        return redirect()->route('item.purchase',["itemId"=>$item->id]);
     }
 }
