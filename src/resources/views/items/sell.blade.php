@@ -42,8 +42,8 @@
                  </form>
               </li>
               <li>
-                <form action="" method="GET">
-                  <!-- @csrf -->
+                <form action="{{route('item.store')}}" method="GET">
+                   @csrf
                   <button type="submit" class="nav__right-link">出品</button>
                 </form>
               </li>
@@ -57,7 +57,7 @@
       <div class="container-wrap">
         <div class="container">
           <h1 class="form-title">商品の出品</h1>
-          <form action="{{route("items.store")}}" method="POST" enctype="multipart/form-data">
+          <form action="{{route("item.store")}}" method="POST" enctype="multipart/form-data">
             @csrf
             <section class="form-section">
               <!-- <h2 class="section-title-image">商品画像</h2> -->

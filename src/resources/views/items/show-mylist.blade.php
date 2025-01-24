@@ -35,7 +35,7 @@
                      </form>
                    </li>
                    <li>
-                     <form action="" method="GET">
+                     <form action="{{route('item.store')}}" method="GET">
                         @csrf
                        <button type="submit" class="nav__right-link">出品</button>
                      </form>
@@ -54,7 +54,7 @@
       <div class="item-list">
 
         {{-- @foreach ($items as $item)
-        
+
         <div class="item">
                   <img class="item-image" src="" alt="">
         <img class="item-image" src="" alt="">

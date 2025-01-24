@@ -39,7 +39,7 @@
                  </form>
                </li>
                <li>
-                 <form action="" method="GET">
+                 <form action="{{route('item.store')}}" method="GET">
                     @csrf
                    <button type="submit" class="nav__right-link">出品</button>
                  </form>
@@ -54,7 +54,7 @@
       <div class="container-wrap">
         <div class="container">
           <h1 class="title">プロフィール設定</h1>
-          <form class="form"  action="{{route("profile.store")}}" method="POST"  enctype="multipart/form-data">
+          <form class="form"  action="{{route("profile.edit")}}" method="POST"  enctype="multipart/form-data">
             @csrf
             <div class="form-group">
               <!-- <div class="image-placeholder"></div> -->
@@ -103,7 +103,7 @@
                 type="text"
                 id="name"
                 name="name"
-                value="{{$user->name}}"
+                value="{{ $errors->any() ? old('name') : $user->name }}"
               />
             </div>
             <div class="form-group">
@@ -125,7 +125,7 @@
                 type="text"
                 id="postal_code"
                 name="postal_code"
-                value="{{$user->postal_code}}"
+               value="{{ $errors->any() ? old('postal_code') : $user->postal_code }}"
               />
             </div>
             <div class="form-group">
@@ -147,7 +147,7 @@
                 type="text"
                 id="address"
                 name="address"
-                value="{{$user->address}}"
+                 value="{{ $errors->any() ? old('address') : $user->address }}"
               />
             </div>
             <div class="form-group">
@@ -169,7 +169,7 @@
                 type="text"
                 id="building"
                 name="building"
-                value="{{$user->building}}"
+                value="{{ $errors->any() ? old('building') : $user->building }}"
               />
             </div>
             <button type="submit" class="form-group__submit-btn">

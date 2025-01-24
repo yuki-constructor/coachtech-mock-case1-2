@@ -38,8 +38,8 @@
                  </form>
               </li>
               <li>
-                <form action="" method="GET">
-                  <!-- @csrf -->
+                <form action="{{route('item.store')}}" method="GET">
+                   @csrf
                   <button type="submit" class="nav__right-link">出品</button>
                 </form>
               </li>

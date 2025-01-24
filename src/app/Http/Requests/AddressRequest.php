@@ -22,7 +22,7 @@ class AddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],             // お名前: 入力必須
+            // 'name' => ['required', 'string', 'max:255'],             // お名前: 入力必須
             'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],  // 郵便番号: 入力必須、ハイフンありの8文字
             'address' => ['required', 'string', 'max:255'],          // 住所: 入力必須
             'building' => ['required', 'string', 'max:255'],         // 建物名: 入力必須
@@ -32,9 +32,9 @@ class AddressRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'お名前を入力してください',
+            // 'name.required' => 'お名前を入力してください',
             'postal_code.required' => '郵便番号を入力してください',
-            'postal_code.regex' => '郵便番号はハイフンありの形式で入力してください',
+            'postal_code.regex' => '郵便番号はハイフンありの8文字の形式で入力してください',
             'address.required' => '住所を入力してください',
             'building.required' => '建物名を入力してください',
         ];

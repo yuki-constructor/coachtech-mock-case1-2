@@ -62,7 +62,13 @@ Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.s
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 // プロフィール更新処理
-// Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+
+// 住所編集画面
+Route::get('/profile/edit/address/{itemId}', [ProfileController::class, 'editAddress'])->name('profile.edit.address');
+
+// 住所更新処理
+Route::post('/profile/edit/address/{itemId}', [ProfileController::class, 'updateAddress'])->name('profile.update.address');
 
 
 
@@ -101,7 +107,14 @@ Route::get("/item/{itemId}",[ItemController::class,"show"])->name("item.show");
 Route::get("/items/register",[ItemController::class,"create"])->name("item.create");
 
 // 商品登録処理
-Route::post("/items/register",[ItemController::class,"store"])->name("items.store");
+Route::post("/items/register",[ItemController::class,"store"])->name("item.store");
+
+// 商品購入画面表示
+Route::get("/purchase/{itemId}",[ItemController::class,"purchase"])->name("item.purchase");
+
+// // 商品購入処理
+// Route::get("/purchase/{itemId}",[ItemController::class,"purchase"])->name("items.purchase");
+
 
 // // 商品編集画面表示
 // Route::get("/items/{itemId}",[ItemController::class,"edit"])->name("items.edit");

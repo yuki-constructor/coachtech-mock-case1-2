@@ -9,6 +9,7 @@ use App\Models\Condition;
 use Illuminate\Http\Request;
 use App\Http\Requests\ExhibitionRequest;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -117,6 +118,20 @@ class ItemController extends Controller
 
     //      return to_route("items.index");
     //  }
+
+
+
+     // 商品購入画面表示
+     public function purchase($itemId)
+     {
+         $item = Item::findOrFail($itemId);
+         $user = Auth::user();
+
+         return view('items.purchase', ['item' => $item, "user" => $user]);
+     }
+
+
+
 
 
 

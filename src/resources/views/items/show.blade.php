@@ -23,7 +23,7 @@
             <li><a href="#" class="nav__right-link">出品</a></li> -->
             <li>
               <form action="{{ route('logout') }}" method="POST">
-                <!-- @csrf -->
+                 @csrf
                 <button type="submit" class="nav__left-link">
                   ログアウト
                 </button>
@@ -38,8 +38,8 @@
                  </form>
             </li>
             <li>
-              <form action="" method="GET">
-                <!-- @csrf -->
+              <form action="{{route('item.store')}}" method="GET">
+                 @csrf
                 <button type="submit" class="nav__right-link">出品</button>
               </form>
             </li>
@@ -58,7 +58,7 @@
     <div class="item-info">
       <h1 class="item-title">{{$item->item_name}}</h1>
       <p class="item-brand">{{$item->brand}}</p>
-      <p class="item-price">¥{{$item->price}}（税込）</p>
+      <p class="item-price">¥{{number_format($item->price)}}（税込）</p>
       <!-- <table class="item-reviews">
       <tr>
         <th class="item-star"> &#9734</th>
@@ -78,7 +78,7 @@
       <p>1</p>
       </div>
       <div class="item-actions">
-        <a href="#" class="buy-button">購入手続きへ</a>
+        <a href="{{route("item.purchase", ["itemId" => $item->id])}}" class="buy-button">購入手続きへ</a>
         <!-- <button class="buy-button">購入手続きへ</button> -->
       </div>
       <section class="item-description">
