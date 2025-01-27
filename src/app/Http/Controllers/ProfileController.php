@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Purchase;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\ProfileRequest;
@@ -65,6 +66,15 @@ class ProfileController extends Controller
     public function show()
     {
         return view('profile.show', ['user' => Auth::user()]); // プロフィール情報を表示
+    }
+
+    // プロフィール表示画面（購入した商品）
+    public function showBuy()
+    {
+        $user=Auth::user();
+        $purchases=$user->purchases()->get();
+
+        return view('profile.show-buy', ['user' => $user,'purchases'=>$purchases]); // 購入した商品を表示
     }
 
     // プロフィール編集画面

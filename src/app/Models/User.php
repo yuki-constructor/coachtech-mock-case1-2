@@ -51,4 +51,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Userは1対多の関係でPurchaseと関連
+    public function purchases()
+{
+    return $this->hasMany(Purchase::class);
+}
+
+
 }

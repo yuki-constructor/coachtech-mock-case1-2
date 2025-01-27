@@ -80,8 +80,8 @@ class ItemController extends Controller
         $item["user_id"] = auth()->id(); // ログイン中のユーザーIDを設定
         $item->save();
         // $item->conditions()->sync($item->conditions);
-        $item->categories()->sync($exhibitionRequest->input('categories',[]));
-        $item->conditions()->sync($exhibitionRequest->input('condition',[]));
+        $item->categories()->sync($exhibitionRequest->input('categories', []));
+        $item->conditions()->sync($exhibitionRequest->input('condition', []));
 
         // $item=$exhibitionRequest->velidated();
         // $item["image"]=basename($exhibitionRequest->file("image")->store("photo","public"));
@@ -91,7 +91,7 @@ class ItemController extends Controller
     }
 
 
-     // 商品登録処理
+    // 商品登録処理
     //  public function store(Request $request)
     //  {
     //     $validatedData = $request->validate([
@@ -119,54 +119,6 @@ class ItemController extends Controller
     //      return to_route("items.index");
     //  }
 
-
-
-     // 商品購入画面表示
-     public function purchase($itemId)
-     {
-         $item = Item::findOrFail($itemId);
-         $user = Auth::user();
-
-         return view('items.purchase', ['item' => $item, "user" => $user]);
-     }
-
-
-
-
-
-
-    //  // 商品編集画面表示
-    //  public function edit($itemId)
-    //  {
-    //      $item = Item::findOrFail($itemId);
-    //      $seasons = Season::all();
-
-    //      return view('items-edit', ['item' => $item, "seasons" => $seasons]);
-    //  }
-
-    //  // 商品更新処理
-    //  public function update(EdititemRequest $request, $itemId)
-    //  {
-    //      $item = Item::findOrFail($itemId);
-    //      $updateData = $request->validated();
-
-    //      // 画像を変更する場合
-    //      if ($request->has("image")) {
-    //          // 変更前の画像をstrage>app>public>photo ディレクトリから削除
-    //          Storage::disk("public")->delete($item->image);
-    //          // 変更後の画像をstrage>app>public>photo ディレクトリに保存、ファイルパスを $updateData["image"]にセット
-    //          $updateData["image"] = basename($request->file("image")->store("photos", "public"));
-    //          // $updateData["image"] = $request->file("image")->store("photos", "public");
-    //      }
-
-    //      // itemsテーブルのデータを更新
-    //      $item->update($updateData);
-    //      // 中間テーブル（item_season テーブル）のデータを更新
-    //      $item->seasons()->sync($updateData["seasons"]);
-    //      // $item->seasons()->attach($updateData["seasons"]);
-
-    //      return to_route("items.index");
-    //  }
 
 
     // 商品一覧画面（マイリスト）表示
