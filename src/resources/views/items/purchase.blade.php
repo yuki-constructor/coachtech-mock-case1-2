@@ -50,7 +50,7 @@
   </header>
 
   <main class="purchase-confirmation">
-    <section class="item-info">
+        <section class="item-info">
       <div class="item-image">
             <img  class="image-placeholder" src="{{asset("storage/photos/item_images/".$item->item_image)}}" alt="">
       </div>
@@ -61,12 +61,14 @@
     </section>
 
     <section class="order-details">
+        <form action="{{route("item.purchase.payment",["itemId"=>$item->id])}}" method="POST">
+            @csrf
       <h2>支払い方法</h2>
       <div class="payment">
-      <select class="payment-method">
+      <select class="payment-method" name="payment-method">
         <option value="" selected hidden>選択してください</option>
-        <option value="credit">コンビニ支払い</option>
-        <option value="convenience">カード支払い</option>
+        <option value="convenience_store">コンビニ支払い</option>
+        <option value="card">カード支払い</option>
       </select>
     </div>
 
@@ -95,6 +97,7 @@
     </section>
     <section class="purchase">
       <button class="purchase-button">購入する</button>
+    </form>
     </section>
 
   </main>

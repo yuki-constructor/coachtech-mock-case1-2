@@ -7,7 +7,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ItemController;
-
+use App\Http\Controllers\PurchaseController;
+use App\Models\Purchase;
 
 // Route::get('/register', function () {
 //     return view('auth/register');
@@ -46,33 +47,35 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('l
 Route::middleware('auth')->group(function () {
 
     // ログアウト
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-// プロフィール設定画面（初回ログイン時）
-Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
+    // プロフィール設定画面（初回ログイン時）
+    Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
 
-// プロフィール登録処理
-Route::post('/profile/create', [ProfileController::class, 'store'])->name('profile.store');
+    // プロフィール登録処理
+    Route::post('/profile/create', [ProfileController::class, 'store'])->name('profile.store');
 
-// プロフィール画面
-// Route::get('/profile/mypage/{id}', [ProfileController::class, 'show'])->name('profile.mypage');
-Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.show');
+    // プロフィール画面
+    // Route::get('/profile/mypage/{id}', [ProfileController::class, 'show'])->name('profile.mypage');
+    Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.show');
 
-// プロフィール編集画面
-Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    // プロフィール画面(購入した商品)
+     Route::get('/profile/show/buy', [ProfileController::class, 'showBuy'])->name('profile.show.buy');
 
-// プロフィール更新処理
-Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+    // // プロフィール画面(出品した商品)
+    //  Route::get('/profile/show/sell', [ProfileController::class, 'showSell'])->name('profile.show.Sell');
 
-// 住所編集画面
-Route::get('/profile/edit/address/{itemId}', [ProfileController::class, 'editAddress'])->name('profile.edit.address');
+    // プロフィール編集画面
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
-// 住所更新処理
-Route::post('/profile/edit/address/{itemId}', [ProfileController::class, 'updateAddress'])->name('profile.update.address');
+    // プロフィール更新処理
+    Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
 
+    // 住所編集画面
+    Route::get('/profile/edit/address/{itemId}', [ProfileController::class, 'editAddress'])->name('profile.edit.address');
 
-
-
+    // 住所更新処理
+    Route::post('/profile/edit/address/{itemId}', [ProfileController::class, 'updateAddress'])->name('profile.update.address');
 });
 
 
@@ -84,8 +87,8 @@ Route::get('/email/verify/{token}', [EmailVerificationController::class, 'verify
 
 Route::middleware('auth')->group(function () {
 
-// Route::get('/item/mylist/{id}', [itemMylistController::class, 'index'])->name('item.mylist');
-Route::get('/item/mylist', [ItemController::class, 'showMylist'])->name('item.show.mylist');
+    // Route::get('/item/mylist/{id}', [itemMylistController::class, 'index'])->name('item.mylist');
+    Route::get('/item/mylist', [ItemController::class, 'showMylist'])->name('item.show.mylist');
 
 
 
@@ -93,35 +96,41 @@ Route::get('/item/mylist', [ItemController::class, 'showMylist'])->name('item.sh
 
 
 
-// // 検索処理
-// Route::get("/items/search",[ItemController::class,"search"])->name("items.search");
+    // // 検索処理
+    // Route::get("/items/search",[ItemController::class,"search"])->name("items.search");
 
-// 商品一覧画面表示
-Route::get("/items",[ItemController::class,"index"])->name("items.index");
+    // 商品一覧画面表示
+    Route::get("/items", [ItemController::class, "index"])->name("items.index");
 
-// // 商品詳細画面表示
-// Route::get("/item",[ItemController::class,"show"])->name("item.show");
-Route::get("/item/{itemId}",[ItemController::class,"show"])->name("item.show");
+    // // 商品詳細画面表示
+    // Route::get("/item",[ItemController::class,"show"])->name("item.show");
+    Route::get("/item/{itemId}", [ItemController::class, "show"])->name("item.show");
 
-// 商品登録画面表示
-Route::get("/items/register",[ItemController::class,"create"])->name("item.create");
+    // 商品登録画面表示
+    Route::get("/items/register", [ItemController::class, "create"])->name("item.create");
 
-// 商品登録処理
-Route::post("/items/register",[ItemController::class,"store"])->name("item.store");
-
-// 商品購入画面表示
-Route::get("/purchase/{itemId}",[ItemController::class,"purchase"])->name("item.purchase");
-
-// // 商品購入処理
-// Route::get("/purchase/{itemId}",[ItemController::class,"purchase"])->name("items.purchase");
+    // 商品登録処理
+    Route::post("/items/register", [ItemController::class, "store"])->name("item.store");
 
 
-// // 商品編集画面表示
-// Route::get("/items/{itemId}",[ItemController::class,"edit"])->name("items.edit");
 
 
-// // 商品更新処理
-// Route::patch("/items/{itemId}/update",[ItemController::class,"update"])->name("items.update");
+    // 商品購入画面表示
+    Route::get("/purchase/{itemId}", [PurchaseController::class, "purchase"])->name("item.purchase");
+
+    // 商品決済処理
+    Route::post("/purchase/{itemId}",[PurchaseController::class,"payment"])->name("item.purchase.payment");
+
+    // 商品決済処理完了後の処理（Purchasesテーブル更新、プロフィール画面（購入した商品）画面表示）
+    Route::get("/purchase/{itemId}/success",[PurchaseController::class,"success"])->name("item.purchase.success");
+
+
+    // // 商品編集画面表示
+    // Route::get("/items/{itemId}",[ItemController::class,"edit"])->name("items.edit");
+
+
+    // // 商品更新処理
+    // Route::patch("/items/{itemId}/update",[ItemController::class,"update"])->name("items.update");
 
 
 });

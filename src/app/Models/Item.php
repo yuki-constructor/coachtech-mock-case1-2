@@ -26,4 +26,10 @@ class Item extends Model
     {
         return $this->belongsToMany(Condition::class, 'conditions_items');
     }
+
+    // Itemは1対多の関係でPurchaseと関連
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
 }
