@@ -132,6 +132,12 @@ body {
     grid-template-columns: auto 1fr;
   }
 
+  .item-reviews__btn{
+text-decoration: none;
+background: transparent;
+border: none;
+  }
+
   .item-star,
   .item-balloon {
     font-size: clamp(32px, 3vw, 45px);

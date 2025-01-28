@@ -23,14 +23,14 @@
               <li><a href="#" class="nav__right-link">出品</a></li> -->
               <li>
                 <form action="{{ route('logout') }}" method="POST">
-                  <!-- @csrf -->
+                   @csrf
                   <button type="submit" class="nav__left-link">
                     ログアウト
                   </button>
                 </form>
               </li>
               <li>
-                <form action="{{route('profile.show')}}" method="GET">
+                <form action="{{route('profile.show.sell')}}" method="GET">
                     @csrf
                    <button type="submit" class="nav__center-link">
                      マイページ
@@ -52,12 +52,18 @@
     <main>
       <div class="menu">
         <a href="#" class="menu__left-link">おすすめ</a>
-        <a href="#" class="menu__right-link">マイリスト</a>
+        {{-- ログイン中のユーザーはマイリスト画面へ --}}
+        @auth
+        <a href="{{route("items.index.mylist")}}" class="menu__right-link">マイリスト</a>
+        @endauth
+{{-- ゲストはログイン画面へ --}}
+@guest
+<a href="{{route("login")}}" class="menu__right-link">マイリスト</a>
+@endguest
       </div>
       <div class="item-list">
 
 @foreach ($items as $item)
-<a href="" >
 <a href="{{ route("item.show", ["itemId" => $item->id]) }}" >
 <div class="item">
     {{-- <div class="item-image"> --}}
@@ -70,8 +76,6 @@
   </div>
   </a>
 @endforeach
-
-
 
         {{-- <div class="item">
           <div class="item-image">商品画像</div>

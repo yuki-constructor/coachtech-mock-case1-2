@@ -27,7 +27,7 @@
                   </form>
                 </li>
                 <li>
-                    <form action="{{route('profile.show')}}" method="GET">
+                    <form action="{{route('profile.show.sell')}}" method="GET">
                         @csrf
                        <button type="submit" class="nav__center-link">
                          マイページ
@@ -48,33 +48,24 @@
 
     <main>
       <div class="menu">
-        <a href="#" class="menu__left-link">おすすめ</a>
+        {{-- <a href="{{route("items.recommend.after-login")}}" class="menu__left-link">おすすめ</a> --}}
+        <a href="{{route("items.index")}}" class="menu__left-link">おすすめ</a>
         <a href="#" class="menu__right-link">マイリスト</a>
       </div>
       <div class="item-list">
-
-        {{-- @foreach ($items as $item)
-
+        @foreach ($items as $item)
         <div class="item">
-                  <img class="item-image" src="" alt="">
-        <img class="item-image" src="" alt="">
-                      <div class="item-name">
-                <p>商品名</p>
+            <a href="{{route('item.show',["itemId" => $item->id])}}">
+                  <img class="item-image" src="{{asset("storage/photos/item_images/".$item->item_image )}}" alt="{{ $item->item_name }}">
+         <div class="item-name">
+                <p>{{$item->item_name}}</p>
+            </a>
             </div>
-          </div> --}}
+          </div>
+        @endforeach
+
 
         {{-- <div class="item">
-                  <img class="item-image" src="{{asset("storage/photos/item_images/".$item->item_image )}}" alt="">
-        <img class="item-image" src="" alt="">
-                      <div class="item-name">
-                <p>{{$item->item_name}}</p>
-            </div>
-          </div> --}}
-
-        {{-- @endforeach --}}
-
-
-        <div class="item">
           <div class="item-image">商品画像</div>
           <div class="item-name">商品名</div>
         </div>
@@ -93,7 +84,7 @@
         <div class="item">
           <div class="item-image">商品画像</div>
           <div class="item-name">商品名</div>
-        </div>
+        </div> --}}
       </div>
     </main>
 

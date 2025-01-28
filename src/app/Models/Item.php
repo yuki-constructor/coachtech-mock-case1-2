@@ -32,4 +32,11 @@ class Item extends Model
     {
         return $this->hasMany(Purchase::class);
     }
-}
+
+    // Itemは多対多の関係でUserと関連
+    public function userLike()
+    {
+        return $this->belongsToMany(User::class, 'likes');
+    }
+
+   }

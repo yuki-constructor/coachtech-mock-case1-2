@@ -30,7 +30,7 @@
               </form>
             </li>
             <li>
-                <form action="{{route('profile.show')}}" method="GET">
+                <form action="{{route('profile.show.sell')}}" method="GET">
                     @csrf
                    <button type="submit" class="nav__center-link">
                      マイページ
@@ -70,16 +70,50 @@
     </tr>
       </table> -->
       <div class="item-reviews">
-      {{-- <p class="item-star"> &#9734</p> --}}
-      <img class="item-star" src="{{asset("storage/photos/logo_images/star.png")}}" alt="">
-      {{-- <p class="item-balloon"> </p> --}}
-      <img class="item-balloon" src="{{asset("storage/photos/logo_images/baloon.png")}}" alt="">
-      <p>3</p>
+
+        {{-- いいね機能 --}}
+
+{{-- ログイン中のユーザーはいいねが押せる --}}
+@auth
+        <form action="{{route('like',['itemId'=>$item->id])}}" method="POST">
+            {{-- <form action="{{ route('like', $item->id) }}" method="POST"> --}}
+            @csrf
+            <button type="submit" class="item-reviews__btn">
+                @if(auth()->user()->likeItem->contains($item))
+                    <!-- いいね済み（黄色の星を表示） -->
+                    <img class="item-star" src="{{ asset('storage/photos/logo_images/star-yellow.png') }}" alt="いいね">
+                @else
+                    <!-- いいねしていない（灰色の星を表示） -->
+                    <img class="item-star" src="{{ asset('storage/photos/logo_images/star.png') }}" alt="いいね">
+                @endif
+            </button>
+        </form>
+@endauth
+
+{{-- ゲストはいいねが押せない --}}
+@guest
+<img class="item-star" src="{{ asset('storage/photos/logo_images/star.png') }}" alt="いいね">
+@endguest
+
+         <img class="item-balloon" src="{{asset("storage/photos/logo_images/baloon.png")}}" alt="">
+
+         <!-- 「いいね」数表示 -->
+<p>{{ $item->userLike()->count()}}</p>
+
       <p>1</p>
       </div>
       <div class="item-actions">
+
+        {{-- ログイン中のユーザーは購入画面へ --}}
+        @auth
         <a href="{{route("item.purchase", ["itemId" => $item->id])}}" class="buy-button">購入手続きへ</a>
-        <!-- <button class="buy-button">購入手続きへ</button> -->
+        @endauth
+
+{{-- ゲストはログイン画面へ --}}
+@guest
+<a href="{{route("login")}}" class="buy-button">購入手続きへ</a>
+@endguest
+
       </div>
       <section class="item-description">
         <h2>商品説明</h2>

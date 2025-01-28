@@ -34,7 +34,7 @@
                 </form>
               </li>
               <li>
-                <form action="{{route('profile.show')}}" method="GET">
+                <form action="{{route('profile.show.sell')}}" method="GET">
                     @csrf
                    <button type="submit" class="nav__center-link">
                      マイページ

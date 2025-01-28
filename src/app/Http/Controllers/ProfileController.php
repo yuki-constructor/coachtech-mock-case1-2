@@ -62,19 +62,32 @@ class ProfileController extends Controller
 
     }
 
-    // プロフィール表示画面
-    public function show()
+    // // プロフィール表示画面
+    // public function show()
+    // {
+    //     return view('profile.show', ['user' => Auth::user()]); // プロフィール情報を表示
+    // }
+
+    // プロフィール表示画面（出品した商品）
+    public function showSell()
     {
-        return view('profile.show', ['user' => Auth::user()]); // プロフィール情報を表示
+        $user = Auth::user();
+        // 出品した商品を取得
+        $items = Item::where("user_id", $user->id)->get();
+
+        // 出品した商品を表示
+        return view('profile.show-sell', ['user' => $user, 'items' => $items]);
     }
+
 
     // プロフィール表示画面（購入した商品）
     public function showBuy()
     {
-        $user=Auth::user();
-        $purchases=$user->purchases()->get();
-
-        return view('profile.show-buy', ['user' => $user,'purchases'=>$purchases]); // 購入した商品を表示
+        $user = Auth::user();
+        // 購入した商品を取得
+        $purchases = $user->purchases()->get();
+        // 購入した商品を表示
+        return view('profile.show-buy', ['user' => $user, 'purchases' => $purchases]);
     }
 
     // プロフィール編集画面
@@ -114,8 +127,8 @@ class ProfileController extends Controller
             'building' => $profileRequest->input('building'),
         ]);
 
-        // プロフィール画面にリダイレクト
-        return redirect()->route('profile.show');
+        // プロフィール画面（購入した商品）にリダイレクト
+        return redirect()->route('profile.show.buy');
     }
 
 
@@ -125,12 +138,12 @@ class ProfileController extends Controller
         // $user=Auth::user();
         $item = Item::findOrFail($itemId);
 
-        return view('profile.edit-address', ['user' => Auth::user(),'item'=>$item]);
+        return view('profile.edit-address', ['user' => Auth::user(), 'item' => $item]);
     }
 
 
     // 住所更新処理
-    public function updateAddress(AddressRequest $addressRequest,$itemId)
+    public function updateAddress(AddressRequest $addressRequest, $itemId)
     // public function updateAddress(Request $request)
     {
         $user = Auth::user(); // ログイン中のユーザーを取得
@@ -147,6 +160,6 @@ class ProfileController extends Controller
         ]);
 
         // 商品購入画面にリダイレクト
-        return redirect()->route('item.purchase',["itemId"=>$item->id]);
+        return redirect()->route('item.purchase', ["itemId" => $item->id]);
     }
 }

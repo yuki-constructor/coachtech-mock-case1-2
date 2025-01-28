@@ -143,13 +143,13 @@ body {
   .menu__left-link {
     margin-left: 150px;
     text-decoration: none;
-    color: #636161;
+    color: red;
   }
 
   .menu__right-link {
     margin-left: 50px;
     text-decoration: none;
-    color: red;
+    color: #636161;
   }
 
   .menu__left-link:hover,
