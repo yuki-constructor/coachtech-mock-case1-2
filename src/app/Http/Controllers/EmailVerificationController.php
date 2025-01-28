@@ -26,8 +26,9 @@ class EmailVerificationController extends Controller
                 return redirect()->route('profile.create'); // プロフィール登録ページにリダイレクト
             }
             // メール認証成功後、元々アクセスしたページにリダイレクト
-            return redirect()->intended();
-            // return to_route('login');
+            // return redirect()->intended();
+            // メール認証成功後、商品一覧画面（マイリスト）ページにリダイレクト
+            return to_route('items.index.mylist');
         }
         // トークンが無効の場合
         return redirect()->route('login')->with('error', '無効な認証トークンです');

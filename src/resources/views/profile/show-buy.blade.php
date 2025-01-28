@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>プロフィール</title>
-    <link rel="stylesheet" href="{{ asset('css/profile/show-buy.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/profile/show-buy.css') }}" />
   </head>
   <body>
     <header class="header">
@@ -31,7 +31,7 @@
                 </form>
               </li>
               <li>
-                <form action="{{route('profile.show')}}" method="GET">
+                <form action="{{route('profile.show.sell')}}" method="GET">
                    @csrf
                   <button type="submit" class="nav__center-link">
                     マイページ
@@ -61,32 +61,32 @@
         </div>
       </div>
       <div class="menu">
-        <a href="#" class="menu__left-link">出品した商品</a>
+        <a href="{{route("profile.show.sell")}}" class="menu__left-link">出品した商品</a>
         <a href="#" class="menu__right-link">購入した商品</a>
       </div>
-      <div class="product-list">
+      <div class="item-list">
 @foreach($purchases as $purchase)
-        <div class="product">
-         <img class="product-image" src="{{asset("storage/photos/item_images/".$purchase->item->item_image )}}" alt="">
-                   <div class="product-name">{{$purchase->item->item_name}}</div>
+        <div class="item">
+         <img class="item-image" src="{{asset("storage/photos/item_images/".$purchase->item->item_image )}}" alt="">
+                   <div class="item-name">{{$purchase->item->item_name}}</div>
         </div>
         @endforeach
 
-        {{-- <div class="product">
-          <div class="product-image">商品画像</div>
-          <div class="product-name">商品名</div>
+        {{-- <div class="item">
+          <div class="item-image">商品画像</div>
+          <div class="item-name">商品名</div>
         </div>
-        <div class="product">
-          <div class="product-image">商品画像</div>
-          <div class="product-name">商品名</div>
+        <div class="item">
+          <div class="item-image">商品画像</div>
+          <div class="item-name">商品名</div>
         </div>
-        <div class="product">
-          <div class="product-image">商品画像</div>
-          <div class="product-name">商品名</div>
+        <div class="item">
+          <div class="item-image">商品画像</div>
+          <div class="item-name">商品名</div>
         </div>
-        <div class="product">
-          <div class="product-image">商品画像</div>
-          <div class="product-name">商品名</div>
+        <div class="item">
+          <div class="item-image">商品画像</div>
+          <div class="item-name">商品名</div>
         </div> --}}
       </div>
     </main>

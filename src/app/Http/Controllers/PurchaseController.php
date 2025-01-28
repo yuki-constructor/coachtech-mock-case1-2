@@ -52,8 +52,8 @@ class PurchaseController extends Controller
         // Stripeの決済セッションを作成
         $session = Session::create([
 
-            // 'payment_method_types' => $paymentMethod == 'credit_card' ? ['card'] : ['convenience_store'], // 支払い方法に応じて設定
-            'payment_method_types' => $paymentMethod, // 支払い方法に応じて設定
+            // 'payment_method_types' => $paymentMethod == 'card' ? ['card'] : ['convenience_store'], // 支払い方法に応じて設定
+            'payment_method_types' => [$paymentMethod], // 支払い方法に応じて設定
             'line_items' => [
                 [
                     'price_data' => [

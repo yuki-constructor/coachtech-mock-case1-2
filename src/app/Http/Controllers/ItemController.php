@@ -42,8 +42,17 @@ class ItemController extends Controller
         // $items = Item::paginate(6);
         $items = Item::all();
 
-        return view("items/index", ["items" => $items]);
+        return view("items.index", ["items" => $items]);
         // return view("items/index");
+    }
+
+    // 商品一覧画面表示（マイリスト）
+    public function indexMylist()
+    {
+        // $items = auth()->user()->likeItem;
+        $items = Auth::user()->likeItem;
+
+        return view("items.index-mylist", ["items" => $items]);
     }
 
 
@@ -59,7 +68,7 @@ class ItemController extends Controller
     }
 
 
-    // 商品登録画面表示
+    // 商品登録（出品）画面表示
     public function create()
     {
         $categories = Category::all();
@@ -69,7 +78,7 @@ class ItemController extends Controller
     }
 
 
-    // 商品登録処理
+    // 商品登録（出品）処理
     public function store(ExhibitionRequest $exhibitionRequest)
     {
         // Log::info($exhibitionRequest->all());
@@ -87,7 +96,7 @@ class ItemController extends Controller
         // $item["image"]=basename($exhibitionRequest->file("image")->store("photo","public"));
         // Item::create($item);
 
-        return to_route("items.index");
+        return to_route("profile.show.sell");
     }
 
 
@@ -120,11 +129,23 @@ class ItemController extends Controller
     //  }
 
 
+    // いいねの処理
 
-    // 商品一覧画面（マイリスト）表示
-    public function showMylist()
+    public function like($itemId)
     {
+        // 現在のユーザーを取得
+        $user = auth()->user();
 
-        return view('items.show-mylist');
+        // ユーザーがその商品を「いいね」していない場合
+        if ($user->likeItem->contains($itemId)) {
+            // すでにいいねしているので解除
+            $user->likeItem()->detach($itemId);
+        } else {
+            // まだいいねしていないので追加
+            $user->likeItem()->attach($itemId);
+        }
+
+        // 商品の詳細ページにリダイレクト
+        return back();
     }
 }

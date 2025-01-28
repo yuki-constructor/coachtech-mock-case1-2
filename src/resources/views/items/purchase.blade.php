@@ -30,7 +30,7 @@
               </form>
             </li>
             <li>
-              <form action="{{route('profile.show')}}" method="GET">
+              <form action="{{route('profile.show.sell')}}" method="GET">
                @csrf
                 <button type="submit" class="nav__center-link">
                   マイページ
@@ -65,9 +65,10 @@
             @csrf
       <h2>支払い方法</h2>
       <div class="payment">
-      <select class="payment-method" name="payment-method">
+      <select class="payment-method" name="payment_method">
         <option value="" selected hidden>選択してください</option>
-        <option value="convenience_store">コンビニ支払い</option>
+        {{-- <option value="convenience_store">コンビニ支払い</option> --}}
+        <option value="konbini">コンビニ支払い</option>
         <option value="card">カード支払い</option>
       </select>
     </div>
