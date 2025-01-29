@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\CommentController;
+
 use App\Models\Purchase;
 
 // Route::get('/register', function () {
@@ -100,6 +102,9 @@ Route::middleware('auth')->group(function () {
 
     // 商品詳細画面表示（いいねの処理）
     Route::post('items/{itemId}/like', [ItemController::class, 'like'])->name('like');
+
+    // 商品詳細画面表示（コメントの処理）
+    Route::post('/items/{itemId}/comment', [ItemController::class, 'comment'])->name('comment');
 
     // 商品登録（出品）画面表示
     Route::get("/items/register", [ItemController::class, "create"])->name("item.create");

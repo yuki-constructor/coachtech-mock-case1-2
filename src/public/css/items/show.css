@@ -76,6 +76,10 @@ body {
   }
 
   /* 商品詳細・フォーム */
+  .error-message{
+    color: #e65a5a;
+      }
+
   .item-detail {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -239,15 +243,15 @@ border: none;
     color: #6f6e6e;
   }
 
-  .comment {
+  .comment-user {
     display: flex;
     justify-content: start;
     align-items: center;
   }
 
-  .comment-image-placeholder {
-    width: 90px;
-    height: 90px;
+  .comment-user-image {
+    width: 50px;
+    height: 50px;
     margin-right: 20px;
     background-color: #ddd;
 
@@ -255,16 +259,17 @@ border: none;
     color: #555;
   }
 
-  .user-icon {
-    font-size: clamp(20px, 1.85vw, 28px);
+  .comment-user-name {
+    font-size: clamp(16px, 1.5vw, 23px);
     font-weight: bold;
   }
 
   .comment-box {
     margin-top: 10px;
+    background-color: #ddd;
   }
 
-  .comment-input {
+  .comment-text {
     width: 100%;
     margin-bottom: 35px;
     padding: 10px;
@@ -277,13 +282,14 @@ border: none;
   .comment-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0px;
     margin-top: 10px;
   }
 
   .comment-textarea__label {
     font-size: clamp(19px, 1.7vw, 26px);
     font-weight: bold;
+    padding: 0;
   }
 
   .comment-textarea {

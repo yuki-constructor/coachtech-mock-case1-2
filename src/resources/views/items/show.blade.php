@@ -99,8 +99,8 @@
 
          <!-- 「いいね」数表示 -->
 <p>{{ $item->userLike()->count()}}</p>
-
-      <p>1</p>
+         <!-- 「コメント」数表示 -->
+      <p>{{$item->comments->count()}}</p>
       </div>
       <div class="item-actions">
 
@@ -163,19 +163,54 @@
         </div>
       </section>
       <section class="comments">
-        <h2>コメント(1)</h2>
-        <div class="comment">
-          <div class="comment-image-placeholder"></div>
-          <span class="user-icon">admin</span>
+
+        <!-- コメント数を表示 -->
+        <h2>コメント({{$item->comments->count()}})</h2>
+
+        <!-- コメント一覧 -->
+        {{-- <div class="comment">
+          <div class="comment-user-image"></div>
+          <span class="comment-user-name">admin</span>
         </div>
          <div class="comment-box">
-        <input type="text" class="comment-input" placeholder="こちらにコメントが入ります。">
-      </div>
-      <form class="comment-form">
-        <label  class="comment-textarea__label" for="">商品へのコメント
-        <textarea class="comment-textarea" placeholder=""></textarea></label>
+        <input type="text" class="comment-text" placeholder="こちらにコメントが入ります。">
+      </div> --}}
+
+      {{-- @foreach ($item->comments as $comment) --}}
+      @foreach ($comments as $comment)
+    <div class="comment-user">
+        <img class="comment-user-image" src="{{ asset('storage/photos/profile_images/' . $comment->user->profile_image) }}" alt="">
+        <span class="comment-user-name">{{ $comment->user->name }}</span>
+    </div>
+        <div class="comment-box">
+        <p class="comment-text">{{ $comment->comment }}</p>
+    </div>
+@endforeach
+
+<!-- コメント投稿フォーム -->
+      <form class="comment-form" action="{{route('comment',['itemId'=>$item->id])}}" method="POST" >
+        @csrf
+        <label  class="comment-textarea__label" for="comment">商品へのコメント</label>
+         {{-- エラーメッセージ --}}
+         @if($errors->has("comment"))
+         <div class="error-message">
+         <ul>
+             @foreach ($errors->get("comment") as $error)
+                 <li>{{$error}}</li>
+             @endforeach
+         </ul>
+         </div>
+         @endif
+        <textarea class="comment-textarea" name="comment" id="comment" rows="2" placeholder=""></textarea>
+        {{-- ログイン中のユーザーはコメントできる --}}
+        @auth
         <button type="submit" class="comment-submit">コメントを送信する</button>
-      </form>
+        @endauth
+        {{-- ゲストはコメントできない --}}
+@guest
+<button class="comment-submit">コメントを送信する</button>
+@endguest
+              </form>
     </section>
   </div>
 </main>
