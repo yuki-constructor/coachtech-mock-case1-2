@@ -15,28 +15,34 @@ class Item extends Model
         'description'
     ];
 
-    // Itemは多対多の関係でCategoryと関連
+    // Itemは多対多の関係でCategoryと関連（アイテムのカテゴリー）
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'categories_items');
     }
 
-    // Itemは多対多の関係でConditionと関連
+    // Itemは多対多の関係でConditionと関連（アイテムのコンディション）
     public function conditions()
     {
         return $this->belongsToMany(Condition::class, 'conditions_items');
     }
 
-    // Itemは1対多の関係でPurchaseと関連
+    // Itemは1対多の関係でPurchaseと関連（アイテムが購入された情報）
     public function purchases()
     {
         return $this->hasMany(Purchase::class);
     }
 
-    // Itemは多対多の関係でUserと関連
+    // Itemは多対多の関係でUserと関連（アイテムにいいねしたユーザー）
     public function userLike()
     {
         return $this->belongsToMany(User::class, 'likes');
+    }
+
+    // Itemは１対多の関係でCommentと関連（アイテムに紐づいたコメント）
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
    }

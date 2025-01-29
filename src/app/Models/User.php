@@ -52,16 +52,27 @@ class User extends Authenticatable
         ];
     }
 
-    // Userは1対多の関係でPurchaseと関連
+    // Userは1対多の関係でPurchaseと関連（ユーザーの購入情報）
     public function purchases()
-{
-    return $this->hasMany(Purchase::class);
-}
+    {
+        return $this->hasMany(Purchase::class);
+    }
 
-public function likeItem()
+     // Userは多対多の関係でItemと関連（ユーザーがいいねした商品）
+    public function likeItem()
     {
         return $this->belongsToMany(Item::class, 'likes');
     }
 
+    // Userは1対多の関係でItemと関連（ユーザーが出品した商品）
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 
+    //Userは1対多の関係でCommentと関連（ユーザーが投稿したコメント）
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

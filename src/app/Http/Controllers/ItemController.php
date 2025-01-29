@@ -6,8 +6,10 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Condition;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\ExhibitionRequest;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,8 +65,9 @@ class ItemController extends Controller
         //  $categories = Category::all();
         $categories = $item->categories;
         $condition = $item->conditions->first(); //  コレクション対応
+        $comments = $item->comments;
 
-        return view('items.show', ['item' => $item, "categories" => $categories, "condition" => $condition]);
+        return view('items.show', ['item' => $item, "categories" => $categories, "condition" => $condition, "comments" => $comments]);
     }
 
 
@@ -130,7 +133,6 @@ class ItemController extends Controller
 
 
     // いいねの処理
-
     public function like($itemId)
     {
         // 現在のユーザーを取得
@@ -147,5 +149,33 @@ class ItemController extends Controller
 
         // 商品の詳細ページにリダイレクト
         return back();
+    }
+
+
+    // コメントの処理
+    public function comment(CommentRequest $commentRequest, $itemId)
+    // public function comment(Request $request, $itemId)
+    {
+        // バリデーション
+        // $request->validate([
+        //     'comment' => 'required|string|max:255',
+        // ]);
+
+        // コメントの保存
+        // $user = Auth::user()->get;
+
+        // Comment::create([
+        //     'user_id' => $user->id,
+        //     'item_id' => $itemId,
+        //     'comment' => $request->input('comment'),
+        // ]);
+
+        Comment::create([
+            'user_id' => auth()->id(),
+            'item_id' => $itemId,
+            'comment' => $request->input('comment'),
+        ]);
+
+        return redirect()->route('item.show', $itemId)->with('success', 'コメントを投稿しました！');
     }
 }
