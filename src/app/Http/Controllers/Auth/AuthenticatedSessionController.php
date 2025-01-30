@@ -75,26 +75,26 @@ class AuthenticatedSessionController extends Controller
         */
     // protected function authenticated(Request $request, $user)
     // {
-        // ユーザーがすでに認証メールを送信されていない場合
-        // if (!$user->email_verification_token) {
-            // トークンを生成して保存
-            // $user->email_verification_token = Str::random(60);
-            // $user->save();
+    // ユーザーがすでに認証メールを送信されていない場合
+    // if (!$user->email_verification_token) {
+    // トークンを生成して保存
+    // $user->email_verification_token = Str::random(60);
+    // $user->save();
 
-            // メール送信（ユーザーに認証メールを送信）
-            // Mail::to($user->email)->send(new EmailVerificationMail($user));
-        // }
+    // メール送信（ユーザーに認証メールを送信）
+    // Mail::to($user->email)->send(new EmailVerificationMail($user));
+    // }
 
-        // 初回ログインの場合はプロフィール登録ページにリダイレクト
-        // if ($user->is_first_login) {
-        //     $user->is_first_login = false; // 初回ログインフラグを false に変更
-            // $user->save(); // 更新を保存
+    // 初回ログインの場合はプロフィール登録ページにリダイレクト
+    // if ($user->is_first_login) {
+    //     $user->is_first_login = false; // 初回ログインフラグを false に変更
+    // $user->save(); // 更新を保存
 
-            // return redirect()->route('profile.create'); // プロフィール登録ページにリダイレクト
-        // }
+    // return redirect()->route('profile.create'); // プロフィール登録ページにリダイレクト
+    // }
 
-        // それ以外の場合は、元々アクセスしようとしていたページにリダイレクト
-        // return redirect()->intended();
+    // それ以外の場合は、元々アクセスしようとしていたページにリダイレクト
+    // return redirect()->intended();
     // }
 
 
@@ -104,6 +104,10 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::logout();
 
-        return to_route("login"); // ログアウト後、ホームにリダイレクト
+        // セッションを削除
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return to_route("items.index"); // ログアウト後、ホームにリダイレクト
     }
 }

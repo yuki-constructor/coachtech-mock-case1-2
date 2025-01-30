@@ -12,31 +12,38 @@ use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
 
 class ItemController extends Controller
 {
 
-    // // 検索
-    // public function search(Request $request)
-    // {
+    // 検索機能
+    public function search(Request $request)
+    {
 
-    //     // $items = Item::paginate(6);
-    //     $items = Item::query();
+        // $items = Item::paginate(6);
+        $items = Item::query();
 
-    //     $keyword = $request->input("name");
+        $keyword = $request->input("item_name");
 
-    //     if (!empty($keyword)) {
-    //         $items->where("name", "LIKE", "%{$keyword}%");
-    //     }
+        if (!empty($keyword)) {
+            $items->where("item_name", "LIKE", "%{$keyword}%");
+        }
 
-    //     $items = $items->paginate(6);
+        // $items = $items->paginate(6);
+        $items = $items->get();
 
-    //     return view("items-index", ["items" => $items]);
-    // }
+        // セッションに検索条件と、検索結果を保存（マイリストで表示）
+        // Session::put(["search_keyword"=>$keyword,"items"=>$items]);
+        session([
+            "search_keyword" => $keyword,
+            "search_items" => $items,
+        ]);
 
-
+        return view("items.index", ["items" => $items]);
+    }
 
     // 商品一覧画面表示
     public function index()
@@ -51,10 +58,31 @@ class ItemController extends Controller
     // 商品一覧画面表示（マイリスト）
     public function indexMylist()
     {
-        // $items = auth()->user()->likeItem;
-        $items = Auth::user()->likeItem;
+        // // $items = auth()->user()->likeItem;
+        // $items = Auth::user()->likeItem;
 
-        return view("items.index-mylist", ["items" => $items]);
+        // return view("items.index-mylist", ["items" => $items]);
+
+        if (Auth::check()) {
+
+            // ログインしている場合
+            //いいねした商品
+            $items = Auth::user()->likeItem;
+            // 商品検索欄に検索したキーワードと検索したキーワードに一致する商品
+            $keyword = session("search_keyword"); // ヘルパー関数
+            // $keyword = Session::get("search_keyword"); // ファサード
+            $searchItems = session("search_items");
+
+            return view("items.index-mylist", [
+                "items" => $items,
+                "keyword" => $keyword,
+                "searchItems" => $searchItems
+            ]);
+        } else {
+
+            // 未ログインの場合
+            return view("items.index-mylist");
+        }
     }
 
 
@@ -173,7 +201,7 @@ class ItemController extends Controller
         Comment::create([
             'user_id' => auth()->id(),
             'item_id' => $itemId,
-            'comment' => $request->input('comment'),
+            'comment' => $commentRequest->input('comment'),
         ]);
 
         return redirect()->route('item.show', $itemId)->with('success', 'コメントを投稿しました！');
