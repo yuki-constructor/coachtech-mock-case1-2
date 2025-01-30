@@ -15,7 +15,10 @@
                 <img src="{{ asset('storage/photos/logo_images/logo.svg') }}" alt="COACHTECH ロゴ" class="logo" />
             </div>
             <div class="header-center">
-                <input type="text" class="search-bar" placeholder="なにをお探しですか？" />
+                <form action="{{ route('items.search') }}">
+                    @csrf
+                    <input class="search-bar" type="text" name="item_name" placeholder="なにをお探しですか？" />
+                </form>
             </div>
             <div class="header-right">
                 <nav class="nav">
