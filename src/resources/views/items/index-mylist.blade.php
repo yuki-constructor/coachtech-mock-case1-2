@@ -17,8 +17,8 @@
             <div class="header-center">
                 {{-- <input type="text" class="search-bar" value="{{ session('search_keyword', ' ') }}"
                     placeholder="なにをお探しですか？" /> --}}
-                <input type="text" class="search-bar" value="@if(!empty($keyword)){{ $keyword }}@endif"
-                    placeholder="なにをお探しですか？" />
+                <input type="text" class="search-bar"
+                    value="@if (!empty($keyword)) {{ $keyword }} @endif" placeholder="なにをお探しですか？" />
             </div>
             <div class="header-right">
                 <nav class="nav">
@@ -72,24 +72,33 @@
                         </a>
                     </div>
                 @endforeach
-            </div>
 
-            {{-- 商品一覧（検索した商品） --}}
-            @if (!empty($searchItems))
-                <div class="item-list">
+                {{-- 商品一覧（検索した商品） --}}
+                @if (!empty($searchItems))
                     @foreach ($searchItems as $searchItem)
-                        <div class="item">
-                            <a href="{{ route('item.show', ['itemId' => $searchItem->id]) }}">
-                                <img class="item-image"
+                        @if ($searchItem->purchases()->exists())
+                            <div class="item">
+                                <img class="item-sold-image"
                                     src="{{ asset('storage/photos/item_images/' . $searchItem->item_image) }}"
-                                    alt="{{ $searchItem->item_name }}">
-                                <div class="item-name">
-                                    <p>{{ $searchItem->item_name }}</p>
+                                    alt="">
+                                <div class="item-sold-name">
+                                    <p>SOLD {{ $searchItem->item_name }}</p>
+                                </div>
+                            </div>
+                        @else
+                            <a href="{{ route('item.show', ['itemId' => $searchItem->id]) }}">
+                                <div class="item">
+                                    <img class="item-image"
+                                        src="{{ asset('storage/photos/item_images/' . $searchItem->item_image) }}"
+                                        alt="{{ $searchItem->item_name }}">
+                                    <div class="item-name">
+                                        <p>{{ $searchItem->item_name }}</p>
+                                    </div>
                                 </div>
                             </a>
-                        </div>
+                        @endif
                     @endforeach
-                </div>
+            </div>
             @endif
 
 

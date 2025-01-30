@@ -73,21 +73,41 @@
                 <a href="{{ route('items.index.mylist') }}" class="menu__right-link">マイリスト</a>
             @endguest
         </div>
-        <div class="item-list">
 
-            @foreach ($items as $item)
+        {{-- 商品一覧 --}}
+        <div class="item-list">
+            {{-- @foreach ($items as $item)
                 <a href="{{ route('item.show', ['itemId' => $item->id]) }}">
                     <div class="item">
-                        {{-- <div class="item-image"> --}}
                         <img class="item-image" src="{{ asset('storage/photos/item_images/' . $item->item_image) }}"
                             alt="">
-                        {{-- <img class="item-image" src="" alt=""> --}}
-                        {{-- </div> --}}
                         <div class="item-name">
                             <p>{{ $item->item_name }}</p>
                         </div>
                     </div>
                 </a>
+            @endforeach --}}
+
+            @foreach ($items as $item)
+                @if ($item->purchases()->exists())
+                    <div class="item">
+                        <img class="item-sold-image"
+                            src="{{ asset('storage/photos/item_images/' . $item->item_image) }}" alt="">
+                        <div class="item-sold-name">
+                            <p>SOLD {{ $item->item_name }}</p>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('item.show', ['itemId' => $item->id]) }}">
+                        <div class="item">
+                            <img class="item-image"
+                                src="{{ asset('storage/photos/item_images/' . $item->item_image) }}" alt="">
+                            <div class="item-name">
+                                <p>{{ $item->item_name }}</p>
+                            </div>
+                        </div>
+                    </a>
+                @endif
             @endforeach
 
             {{-- <div class="item">
