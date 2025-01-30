@@ -23,10 +23,7 @@
             <div class="header-center">
                 <form action="{{ route('items.search') }}">
                     @csrf
-                    <input class="search-bar" type="text" name="item_name"
-                        placeholder="なにをお探しですか？" />
-                        {{-- <input type="text" class="search-bar" value="@if(!empty($keyword)){{ $keyword }}@endif"
-                        placeholder="なにをお探しですか？" /> --}}
+                    <input class="search-bar" type="text" name="item_name" placeholder="なにをお探しですか？" />
                 </form>
             </div>
 
