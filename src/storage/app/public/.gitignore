@@ -3,12 +3,3 @@
 # photos ディレクトリを追跡
 !photos/
 !.gitignore
-# photos/item_images ディレクトリを追跡
-!public/photos/item_images/
-!.gitignore
-# photos/logo_images ディレクトリを追跡
-!public/photos/logo_images/
-!.gitignore
-# photos/profile_images ディレクトリを追跡
-!public/photos/profile_images/
-!.gitignore
