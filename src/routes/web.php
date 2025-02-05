@@ -101,7 +101,7 @@ Route::get("/items/search", [ItemController::class, "search"])->name("items.sear
 Route::get("/items", [ItemController::class, "index"])->name("items.index");
 
 // 商品一覧画面表示(マイリスト)
-Route::get('/items/mylist', [ItemController::class, 'indexMylist'])->name('items.index.mylist')->middleware('auth');
+Route::get('/items/mylist', [ItemController::class, 'indexMylist'])->name('items.index.mylist');
 
 // 商品詳細画面表示
 Route::get("/item/{itemId}", [ItemController::class, "show"])->name("item.show");

@@ -61,7 +61,7 @@ class User extends Authenticatable
      // Userは多対多の関係でItemと関連（ユーザーがいいねした商品）
     public function likeItem()
     {
-        return $this->belongsToMany(Item::class, 'likes');
+        return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
     }
 
     // Userは1対多の関係でItemと関連（ユーザーが出品した商品）

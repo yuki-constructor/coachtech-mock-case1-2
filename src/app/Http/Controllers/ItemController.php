@@ -49,7 +49,13 @@ class ItemController extends Controller
     public function index()
     {
         // $items = Item::paginate(6);
-        $items = Item::all();
+        // $items = Item::all();
+
+        if (Auth::check()) {
+            $items = Item::where('user_id', '!=', auth()->id())->get();
+        } else {
+            $items = Item::all();
+        }
 
         return view("items.index", ["items" => $items]);
         // return view("items/index");
@@ -167,7 +173,8 @@ class ItemController extends Controller
         $user = auth()->user();
 
         // ユーザーがその商品を「いいね」していない場合
-        if ($user->likeItem->contains($itemId)) {
+        // if ($user->likeItem->contains($itemId))
+        if ($user->likeItem()->where('item_id', $itemId)->exists()) {
             // すでにいいねしているので解除
             $user->likeItem()->detach($itemId);
         } else {

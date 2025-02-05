@@ -90,7 +90,7 @@ class PurchaseController extends Controller
             'purchase_status' => 0, // 購入ステータスを「０：未完了」で登録
             'payment_method' => $paymentMethod == 'card' ? 1 : 2, // 1:カード, 2:コンビニ
             'stripe_payment_id' => $session->id, // Stripeの決済ID
-            'sending_address' => $user->address,
+            'sending_address' =>'〒' . trim($user->postal_code) . ' ' . trim($user->address) . ' ' . trim($user->building),  // 郵便番号 + 住所 + 建物名を結合して保存
 
         ]);
 
@@ -113,7 +113,7 @@ class PurchaseController extends Controller
         // Stripeの秘密鍵を設定
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-                // セッションIDを使って決済情報を取得
+        // セッションIDを使って決済情報を取得
         $session = Session::retrieve($purchase->stripe_payment_id);
 
         // 支払いが完了しているかをチェック

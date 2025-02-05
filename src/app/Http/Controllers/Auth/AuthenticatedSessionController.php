@@ -53,18 +53,20 @@ class AuthenticatedSessionController extends Controller
 
             // return view('auth.login-message');
 
-            return back()->with(['login-message' => 'ログインを完了するには、メール認証が必要です。認証メールが届きます。メール本文内のリンクをクリックして、メール認証を完了してください。']);
+            // return back()->with(['login-message' => 'ログインを完了するには、メール認証が必要です。認証メールが届きます。メール本文内のリンクをクリックして、メール認証を完了してください。']);
+            return to_route('login')->with(['login-message' => 'ログインを完了するには、メール認証が必要です。認証メールが届きます。メール本文内のリンクをクリックして、メール認証を完了してください。']);
 
             //   ▲▲▲▲▲▲▲▲▲▲▲▲
 
         }
 
         // 認証失敗の場合
-        // return back()->withErrors(['email' => '認証情報が間違っています。']);
+        // return back()->withErrors(['email' =>  'ログイン情報が登録されていません。']);
 
-        return back()->with(['error' => ' ログイン情報が登録されていません。']);
+        // return back()->with(['error' => 'ログイン情報が登録されていません。']);// PHPUnitテストで、エラーとなるため、return to_route()に書き換え
+        return to_route('login')->with(['error' => 'ログイン情報が登録されていません。']);
 
-        // return redirect()->route('login')->with('error', '認証情報が間違っています。正しいログイン情報を入力してください');
+        // return redirect()->route('login')->with('error',  'ログイン情報が登録されていません。');
 
         // }
     }
