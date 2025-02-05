@@ -1,14 +1,9 @@
-# 他の無視対象はそのまま
-*
-# photos ディレクトリを追跡
-!photos/
-!.gitignore
 # photos/item_images ディレクトリを追跡
-!public/photos/item_images/
+!item_images/
 !.gitignore
 # photos/logo_images ディレクトリを追跡
-!public/photos/logo_images/
+!logo_images/
 !.gitignore
 # photos/profile_images ディレクトリを追跡
-!public/photos/profile_images/
+!profile_images/
 !.gitignore
