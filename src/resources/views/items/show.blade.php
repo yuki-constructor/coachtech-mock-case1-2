@@ -84,7 +84,7 @@
                         {{-- <form action="{{ route('like', $item->id) }}" method="POST"> --}}
                         @csrf
                         <button type="submit" class="item-reviews__btn">
-                            @if (auth()->user()->likeItem->contains($item))
+                            @if (auth()->user()->likeItem->contains($item->id))
                                 <!-- いいね済み（黄色の星を表示） -->
                                 <img class="item-star" src="{{ asset('storage/photos/logo_images/star-yellow.png') }}"
                                     alt="いいね">
@@ -105,9 +105,9 @@
                 <img class="item-balloon" src="{{ asset('storage/photos/logo_images/baloon.png') }}" alt="">
 
                 <!-- 「いいね」数表示 -->
-                <p>{{ $item->userLike()->count() }}</p>
+                <p class="item-like-count">{{ $item->userLike()->count() }}</p>
                 <!-- 「コメント」数表示 -->
-                <p>{{ $item->comments->count() }}</p>
+                <p class="item-comment-count">{{ $item->comments->count() }}</p>
             </div>
             <div class="item-actions">
 

@@ -11,6 +11,6 @@ class Category extends Model
     // Categoryは多対多の関係でItemと関連
     public function items()
     {
-        return $this->belongsToMany(Item::class, 'categories_items');
+        return $this->belongsToMany(Item::class, 'categories_items')->withTimestamps();
     }
 }

@@ -11,6 +11,6 @@ class Condition extends Model
     // Conditionは多対多の関係でItemと関連
     public function items()
     {
-        return $this->belongsToMany(Item::class, 'conditions_items');
+        return $this->belongsToMany(Item::class, 'conditions_items')->withTimestamps();
     }
 }

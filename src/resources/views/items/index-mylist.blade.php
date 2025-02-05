@@ -61,7 +61,7 @@
 
             {{-- 商品一覧（いいねした商品） --}}
             <div class="item-list">
-                @foreach ($items as $item)
+                {{-- @foreach ($items as $item)
                     <div class="item">
                         <a href="{{ route('item.show', ['itemId' => $item->id]) }}">
                             <img class="item-image" src="{{ asset('storage/photos/item_images/' . $item->item_image) }}"
@@ -71,7 +71,29 @@
                             </div>
                         </a>
                     </div>
-                @endforeach
+                @endforeach --}}
+
+                @foreach ($items as $item)
+                @if ($item->purchases()->exists())
+                    <div class="item">
+                        <img class="item-sold-image"
+                            src="{{ asset('storage/photos/item_images/' . $item->item_image) }}" alt="">
+                        <div class="item-sold-name">
+                            <p>SOLD {{ $item->item_name }}</p>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('item.show', ['itemId' => $item->id]) }}">
+                        <div class="item">
+                            <img class="item-image"
+                                src="{{ asset('storage/photos/item_images/' . $item->item_image) }}" alt="">
+                            <div class="item-name">
+                                <p>{{ $item->item_name }}</p>
+                            </div>
+                        </div>
+                    </a>
+                @endif
+            @endforeach
 
                 {{-- 商品一覧（検索した商品） --}}
                 @if (!empty($searchItems))
