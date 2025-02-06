@@ -90,18 +90,16 @@ Route::middleware('auth')->group(function () {
 //  商品関連
 // ===================================================
 
-// ---- 商品検索
-
-// 検索処理
-Route::get("/items/search", [ItemController::class, "search"])->name("items.search");
-
-// ---- 商品一覧・詳細
+// ---- 商品一覧・検索・詳細
 
 // 商品一覧画面表示（おすすめ）
 Route::get("/items", [ItemController::class, "index"])->name("items.index");
 
 // 商品一覧画面表示(マイリスト)
 Route::get('/items/mylist', [ItemController::class, 'indexMylist'])->name('items.index.mylist');
+
+// 検索処理
+Route::get("/items/search", [ItemController::class, "search"])->name("items.search");
 
 // 商品詳細画面表示
 Route::get("/item/{itemId}", [ItemController::class, "show"])->name("item.show");
