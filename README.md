@@ -8,13 +8,13 @@ coachtechフリマ
 
 以下のコマンドで、Git リポジトリをクローンします。
 
-$ git@github.com:yuki-constructor/coachtech-mock-case1-2.git
+$ git clone git@github.com:yuki-constructor/coachtech-mock-case1-2.git
 
 ## ⓶.env ファイルの作成
 
 以下のコマンドで、 src ディレクトリに移動し、.env.example を .env にコピーします。
 
-$ cd src/
+$ cd coachtech-mock-case1-2/src/
 
 $ cp .env.example .env
 
@@ -82,7 +82,7 @@ http://localhost:8080 にアクセスすることで、phpMyAdmin を確認で�
 
 以下のコマンドで、データベースにサンプルデータを挿入するためにシーディングを実行します。
 
-$ php artisan db:seed
+$ php artisan migrate:fresh --seed
 
 ## ⑪ アプリケーションの動作確認
 
