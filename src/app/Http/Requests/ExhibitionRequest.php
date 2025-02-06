@@ -23,10 +23,8 @@ class ExhibitionRequest extends FormRequest
     {
         return [
             'item_name' => ['required', 'string'],   // 商品名: 入力必須
-            // 'brand' => ['required', 'string'],     // ブランド名: 入力必須
             'description' => ['required', 'string', 'max:255'],   // 商品説明: 入力必須、最大文字数255
             'item_image' => ['required', 'image', 'mimes:jpeg,png'],    // 商品画像: 入力必須、 拡張子が .jpeg もしくは .png
-            // 'categories.*' => ['required', 'array'],   // 商品カテゴリー: 入力必須
             'categories.*' => ['required'],   // 商品カテゴリー: 入力必須
             'condition' => ['required', 'integer'], // 商品の状態: 入力必須
             'price' => ['required', 'numeric'],    // 商品価格: 入力必須
@@ -37,7 +35,6 @@ class ExhibitionRequest extends FormRequest
     {
         return [
             'item_name.required' => '商品名を入力してください',
-            // 'brand.required' => 'ブランド名を入力してください',
             'description.required' => '商品説明を入力してください',
             'description.min' => '商品説明は255文字以下で入力してください',
             'item_image.required' => '商品画像をアップロードしてください',

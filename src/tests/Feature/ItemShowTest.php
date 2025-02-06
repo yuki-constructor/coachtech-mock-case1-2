@@ -26,7 +26,6 @@ class ItemShowTest extends TestCase
     // データベーストランザクションを利用
     use DatabaseTransactions;
 
-
     // ===================================================
     // セットアップ
     // ===================================================
@@ -45,9 +44,6 @@ class ItemShowTest extends TestCase
         // ユーザーを作成
         $this->user = User::factory()->create();
         // $this->actingAs($this->user);
-
-        // // 他のユーザーを作成
-        // $this->otherUser = User::factory()->create();
 
         // 商品を作成
         $this->item = Item::create([
@@ -122,12 +118,9 @@ class ItemShowTest extends TestCase
         $response->assertSee($this->item->description);
 
         //カテゴリが表示されていることを確認
-        // $response->assertSee($this->item->categories->pluck('category_name')->implode(' '));
-        // $response->assertSeeText($this->item->categories->pluck('category_name')->implode(' '));
         $response->assertSeeInOrder($this->item->categories->pluck('category_name')->toArray());
 
         // 商品の状態が表示されていることを確認
-        // $response->assertSeeInOrder($this->item->conditions->pluck('condition_name')->toArray());
         $response->assertSee($this->item->conditions->first()->condition_name);
 
         // いいね数が表示されていることを確認
@@ -159,8 +152,6 @@ class ItemShowTest extends TestCase
         $response->assertStatus(200);
 
         //カテゴリが表示されていることを確認
-        // $response->assertSee($this->item->categories->pluck('category_name')->implode(' '));
-        // $response->assertSeeText($this->item->categories->pluck('category_name')->implode(' '));
         $response->assertSeeInOrder($this->item->categories->pluck('category_name')->toArray());
     }
 }

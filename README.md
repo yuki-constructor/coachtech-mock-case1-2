@@ -1,20 +1,26 @@
 # アプリケーション名
+
 coachtechフリマ
 
 # 環境構築
-## ⓵リポジトリをクローン
+
+## ⓵ リポジトリをクローン
+
 以下のコマンドで、Git リポジトリをクローンします。
 
 $ git@github.com:yuki-constructor/coachtech-mock-case1-2.git
 
 ## ⓶.env ファイルの作成
-以下のコマンドで、 srcディレクトリに移動し、.env.example を .env にコピーします。
+
+以下のコマンドで、 src ディレクトリに移動し、.env.example を .env にコピーします。
 
 $ cd src/
 
-$ cp .env.example .env  
+$ cp .env.example .env
 
-.env ファイルを開いて、以下の設定を変更します。  
+
+.env ファイルを開いて、以下の設定を変更します。
+
 
 APP_TIMEZONE=Asia/Tokyo
 
@@ -32,56 +38,64 @@ DB_USERNAME=laravel_user
 
 DB_PASSWORD=laravel_pass
 
-## ⓷Dockerコンテナのビルドと起動
-以下のコマンドで、Dockerコンテナを起動します。
+## ⓷Docker コンテナのビルドと起動
+
+以下のコマンドで、Docker コンテナを起動します。
 
 $ docker-compose up --build -d
 
-## ⓸PHPコンテナ内にログイン
-以下のコマンドで、PHPコンテナに接続します。
+## ⓸PHP コンテナ内にログイン
+
+以下のコマンドで、PHP コンテナに接続します。
 
 $ docker-compose exec php bash
 
-## ⓹composerのインストール
-以下のコマンドで、composerをインストールします。
+## ⓹composer のインストール
+
+以下のコマンドで、composer をインストールします。
 
 $ composer install
 
-## ⓺アプリケーションキーの生成
+## ⓺ アプリケーションキーの生成
+
 以下のコマンドで、Laravel のアプリケーションキーを生成します。
 
 $ php artisan key:generate
 
-## ⓻シンボリックリンクを設定
+## ⓻ シンボリックリンクを設定
+
 以下のコマンドで、画像を公開ディレクトリからアクセス可能にするために、シンボリックリンクを設定します。
 
 $ php artisan storage:link
 
-## ⓼データベースのマイグレーション
+## ⓼ データベースのマイグレーション
+
 以下のコマンドで、データベースをセットアップするために、マイグレーションを実行します。
 
 $ php artisan migrate
 
-## ⑨phpMyAdminの動作確認
-http://localhost:8080 にアクセスすることで、phpMyAdminを確認できます。
+## ⑨phpMyAdmin の動作確認
 
-## ⓾データベースのシーディング
- 以下のコマンドで、データベースにサンプルデータを挿入するためにシーディングを実行します。
+http://localhost:8080 にアクセスすることで、phpMyAdmin を確認できます。
+
+## ⓾ データベースのシーディング
+
+以下のコマンドで、データベースにサンプルデータを挿入するためにシーディングを実行します。
 
 $ php artisan db:seed
 
-## ⑪アプリケーションの動作確認
+## ⑪ アプリケーションの動作確認
+
 http://localhost にアクセスすることで、アプリケーションが動作していることを確認できます。
 
 もし、エラーとなった場合、以下のコマンドでディレクトリ書き込み権限を設定することで改善するか確認してください。
 
-sudo chmod -R 777 src/*  
-chmod -R 777 www/.* （PHPコンテナ内に入っている場合は、こちらを実行）
+sudo chmod -R 777 src/_　
+chmod -R 777 www/._ （PHP コンテナ内に入っている場合は、こちらを実行）
 
+## ⑫Mailpit の設定
 
-## ⑫Mailpitの設定
-
-### ⑫-1.　.env ファイルを開いて、以下の設定を変更します。
+### ⑫-1. 　.env ファイルを開いて、以下の設定を変更します。
 
 MAIL_MAILER=smtp
 
@@ -99,8 +113,8 @@ MAIL_FROM_ADDRESS=noreply@example.com
 
 MAIL_FROM_NAME="${APP_NAME}"
 
+### ⑫-2. 　 config/mail.php ファイルにて Mailpit の設定
 
-### ⑫-2.　config/mail.phpファイルにてMailpitの設定
 以下のように設定を確認・修正してください。
 
 return [
@@ -130,84 +144,78 @@ return [
              resource_path('views/emails'), // カスタムビュー用ディレクトリ
         resource_path('views/vendor/mail'), // デフォルトのオーバーライド用
           ],
-　],
+
+],
 
 ];
-
 
 以下のコマンドを実行  
 $ php artisan config:clear  
 $ php artisan cache:clear
 
+### ⑫-3. 　 Mailpit の動作確認
 
-### ⑫-3.　Mailpitの動作確認
-<http://localhost:8025>にアクセスすることで、Mailpitを確認できます。
+http://localhost:8025 にアクセスすることで、Mailpit を確認できます。
 
+## ⑬Stripe の設定
 
-## ⑬Stripeの設定
+### ⑬- 1. 　 Stripe アカウントの作成
 
-### ⑬- 1.　 Stripeアカウントの作成 
-<https://dashboard.stripe.com/register>　にアクセスし、Stripeアカウントを作成します。
-Stripeアカウントを作成した後、以下の２点を行ってください。
+<https://dashboard.stripe.com/register>　にアクセスし、Stripe アカウントを作成します。  
+Stripe アカウントを作成した後、以下の２点を行ってください。
 
-１．Stripeのダッシュボードで「コンビニ払い」を有効化
+１．Stripe のダッシュボードで「コンビニ払い」を有効化
 設定（ダッシュボード右上の歯車マーク）＞製品の設定＞決済＞決済手段＞店舗支払い＞コンビニ決済＞有効にする
 
-２．Stripeのダッシュボードで、テスト用の公開可能キー（publishable_key）と秘密キー（secret_key）を確認
+２．Stripe のダッシュボードで、テスト用の公開可能キー（publishable_key）と秘密キー（secret_key）を確認
 
-### ⑬- 2.　テスト用の公開可能キー（publishable_key）と秘密キー（secret_key）を.envファイルに設定 
+### ⑬- 2.　テスト用の公開可能キー（publishable_key）と秘密キー（secret_key）を.env ファイルに設定
 
- .envファイル
+.env ファイル
 
- STRIPE_PUBLIC_KEY=your_test_stripe_public_key 
-STRIPE_SECRET_KEY=your_test_stripe_secret_key  
+STRIPE_PUBLIC_KEY=your_test_stripe_public_key
+STRIPE_SECRET_KEY=your_test_stripe_secret_key
 
- 
-以下のコマンドを実行
-$ php artisan config:clear 
- $ php artisan cache:clear
+以下のコマンドを実行  
+$ php artisan config:clear  
+$ php artisan cache:clear  
 
- 
-### ⑬-3.　 Stripeパッケージをインストール 
+### ⑬-3. 　 Stripe パッケージをインストール
 
-以下のコマンドで、tripe用のパッケージをインストールします。 
+以下のコマンドで、tripe 用のパッケージをインストールします。
 
- $ composer require stripe/stripe-php 
+$ composer require stripe/stripe-php
 
+## ⑭ Fortify の設定
 
-## ⑭ Fortifyの設定
-
-### ⑭-1.　 Fortify パッケージのインストール
+### ⑭-1. 　 Fortify パッケージのインストール
 
 以下のコマンドで、 Fortify 用のパッケージをインストールします。
 
- $composer require laravel/fortify
+$composer require laravel/fortify
 
-### ⑭-2.　 Fortify の設定ファイルの公開
+### ⑭-2. 　 Fortify の設定ファイルの公開
 
 以下のコマンドで、設定ファイルとリソースを公開します。
 
- $ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider" --tag=config
+$ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider" --tag=config
 
-これで、config/fortify.phpという設定ファイルが作成されます。
+これで、config/fortify.php という設定ファイルが作成されます。
 
-### ⑭-3.　 Fortify のサービスプロバイダを登録
+### ⑭-3. 　 Fortify のサービスプロバイダを登録
 
-Laravel 11では、Fortifyはデフォルトでサービスプロバイダが登録されています。
-
-
-
+Laravel 11 では、Fortify はデフォルトでサービスプロバイダが登録されています。
 
 # 使用技術(実行環境)
+
 Laravel Framework 11.3.2  
 PHP 8.2 以上  
 Mailpit  
 Fortify  
- Stripe 16.4  
+Stripe 16.4  
 
-
-# ER図
-
+# ER 図
 
 # URL
+
 開発環境：[git@github.com:yuki-constructor/coachtech-mock-case1-2.git](https://github.com/yuki-constructor/coachtech-mock-case1-2.git)

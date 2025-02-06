@@ -25,8 +25,7 @@ class ItemSellTest extends TestCase
 {
 
     // データベーストランザクションを利用
-    // use DatabaseTransactions;
-
+    use DatabaseTransactions;
 
     // ===================================================
     //  （テスト内容）商品出品画面にて必要な情報が保存できること（カテゴリ、商品の状態、商品名、商品の説明、販売価格）
@@ -46,9 +45,6 @@ class ItemSellTest extends TestCase
         // ステータスコード 200 を確認
         $response->assertStatus(200);
 
-        //  // ストレージの設定
-        //  Storage::fake('public');
-
         // 既存のカテゴリーテーブルからカテゴリーデータを取得
         $category = Category::inRandomOrder()->first(); // ランダムなカテゴリを取得
 
@@ -64,7 +60,6 @@ class ItemSellTest extends TestCase
             'description' => 'テスト商品の説明',
             'categories' => [$category->id],
             'condition' => [$condition->id],
-
         ];
 
         // 出品処理を実行

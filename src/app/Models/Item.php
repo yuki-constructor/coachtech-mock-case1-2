@@ -44,5 +44,4 @@ class Item extends Model
     {
         return $this->hasMany(Comment::class);
     }
-
-   }
+}

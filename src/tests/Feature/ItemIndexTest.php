@@ -50,7 +50,6 @@ class ItemIndexTest extends TestCase
      */
     public function test_items_sold_out($itemData, $purchaseData)
     {
-
         // 商品データを作成
         $item = Item::create($itemData);
 
@@ -114,8 +113,6 @@ class ItemIndexTest extends TestCase
         // 他のユーザーの商品を作成
         $otherUser = User::factory()->create();
         $otherItem = Item::create(array_merge($otherData, ['user_id' => $otherUser->id])); // 異なる user_id（他のユーザー）
-
-        // $otherItem = Item::create(array_merge($otherData, ['user_id' => 1])); // 異なる user_id（他のユーザー）
 
         // 商品一覧ページを開く
         $response = $this->get(route('items.index'));

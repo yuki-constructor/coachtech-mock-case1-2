@@ -90,11 +90,6 @@ class ItemCommentTest extends TestCase
         // ステータスコード 200 を確認
         $response->assertStatus(200);
 
-        // ログイン済みのユーザーはコメントを送信できるか（type="submit" のボタンが表示されているか）確認
-        // $response->assertSeeInOrder([
-        //     'button type="submit" class="comment-submit"'
-        // ], false);
-
         // ログイン済みのユーザーはコメントを送信できるか確認
         // type="submit" のボタンが表示されてることを確認
         $response->assertSee('<button type="submit" class="comment-submit">コメントを送信する</button>', false);
@@ -118,7 +113,6 @@ class ItemCommentTest extends TestCase
         $response = $this->get(route('item.show', ['itemId' => $this->item->id]));
 
         // 商品詳細ページにコメントが表示されたか確認
-        // $response->assertSee($this->comment->comment);
         $response->assertSee('テストコメント');
     }
 

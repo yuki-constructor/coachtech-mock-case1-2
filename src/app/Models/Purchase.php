@@ -16,13 +16,13 @@ class Purchase extends Model
         'sending_address',
     ];
 
-//   Userとのリレーション
+    //   Userとのリレーション
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-//    Itemとのリレーション
+    //    Itemとのリレーション
     public function item()
     {
         return $this->belongsTo(Item::class);
