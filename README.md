@@ -1,5 +1,5 @@
 # アプリケーション名
-お問い合わせフォーム
+coachtechフリマ
 
 # 環境構築
 ## ⓵リポジトリをクローン
@@ -12,9 +12,9 @@ $ git@github.com:yuki-constructor/coachtech-mock-case1-2.git
 
 $ cd src/
 
-$ cp .env.example .env
+$ cp .env.example .env  
 
-.env ファイルを開いて、以下の設定を変更します。
+.env ファイルを開いて、以下の設定を変更します。  
 
 APP_TIMEZONE=Asia/Tokyo
 
@@ -75,13 +75,13 @@ http://localhost にアクセスすることで、アプリケーションが動
 
 もし、エラーとなった場合、以下のコマンドでディレクトリ書き込み権限を設定することで改善するか確認してください。
 
-sudo chmod -R 777 src/*　
+sudo chmod -R 777 src/*  
 chmod -R 777 www/.* （PHPコンテナ内に入っている場合は、こちらを実行）
 
 
 ## ⑫Mailpitの設定
 
-### ⑫-1　.env ファイルを開いて、以下の設定を変更します。
+### ⑫-1.　.env ファイルを開いて、以下の設定を変更します。
 
 MAIL_MAILER=smtp
 
@@ -100,7 +100,7 @@ MAIL_FROM_ADDRESS=noreply@example.com
 MAIL_FROM_NAME="${APP_NAME}"
 
 
-### ⑫-2　config/mail.phpファイルにてMailpitの設定
+### ⑫-2.　config/mail.phpファイルにてMailpitの設定
 以下のように設定を確認・修正してください。
 
 return [
@@ -135,19 +135,19 @@ return [
 ];
 
 
-以下のコマンドを実行
-$ php artisan config:clear 
- $ php artisan cache:clear
+以下のコマンドを実行  
+$ php artisan config:clear  
+$ php artisan cache:clear
 
 
-### ⑫-3　Mailpitの動作確認
-http://localhost:8025にアクセスすることで、Mailpitを確認できます。
+### ⑫-3.　Mailpitの動作確認
+<http://localhost:8025>にアクセスすることで、Mailpitを確認できます。
 
 
 ## ⑬Stripeの設定
 
-### ⑬- 1　 Stripeアカウントの作成 
-https://dashboard.stripe.com/register　にアクセスし、Stripeアカウントを作成します。
+### ⑬- 1.　 Stripeアカウントの作成 
+<https://dashboard.stripe.com/register>　にアクセスし、Stripeアカウントを作成します。
 Stripeアカウントを作成した後、以下の２点を行ってください。
 
 １．Stripeのダッシュボードで「コンビニ払い」を有効化
@@ -168,7 +168,7 @@ $ php artisan config:clear
  $ php artisan cache:clear
 
  
-### ⑬-3　 Stripeパッケージをインストール 
+### ⑬-3.　 Stripeパッケージをインストール 
 
 以下のコマンドで、tripe用のパッケージをインストールします。 
 
@@ -177,13 +177,13 @@ $ php artisan config:clear
 
 ## ⑭ Fortifyの設定
 
-### ⑭-1　 Fortify パッケージのインストール
+### ⑭-1.　 Fortify パッケージのインストール
 
 以下のコマンドで、 Fortify 用のパッケージをインストールします。
 
  $composer require laravel/fortify
 
-### ⑭-2　 Fortify の設定ファイルの公開
+### ⑭-2.　 Fortify の設定ファイルの公開
 
 以下のコマンドで、設定ファイルとリソースを公開します。
 
@@ -191,7 +191,7 @@ $ php artisan config:clear
 
 これで、config/fortify.phpという設定ファイルが作成されます。
 
-### ⑭-3　 Fortify のサービスプロバイダを登録
+### ⑭-3.　 Fortify のサービスプロバイダを登録
 
 Laravel 11では、Fortifyはデフォルトでサービスプロバイダが登録されています。
 
@@ -199,15 +199,15 @@ Laravel 11では、Fortifyはデフォルトでサービスプロバイダが登
 
 
 # 使用技術(実行環境)
-Laravel Framework 11.3.2
-PHP 8.2 以上
-Mailpit
-Fortify
- Stripe 16.4
+Laravel Framework 11.3.2  
+PHP 8.2 以上  
+Mailpit  
+Fortify  
+ Stripe 16.4  
 
 
 # ER図
 
 
 # URL
-開発環境：git@github.com:yuki-constructor/coachtech-mock-case1-2.git
+開発環境：[git@github.com:yuki-constructor/coachtech-mock-case1-2.git](https://github.com/yuki-constructor/coachtech-mock-case1-2.git)
