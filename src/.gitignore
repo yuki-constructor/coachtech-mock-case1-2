@@ -16,9 +16,9 @@
 !/storage/app/public/
 /storage/app/public/*
 !/storage/app/public/photos/
-!/storage/app/public/photos/item_images/
-!/storage/app/public/photos/logo_images/
-!/storage/app/public/photos/profile_images/
+# !/storage/app/public/photos/item_images/
+# !/storage/app/public/photos/logo_images/
+# !/storage/app/public/photos/profile_images/
 # ▲追加
 /storage/*.key
 /storage/pail
