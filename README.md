@@ -26,6 +26,7 @@ APP_TIMEZONE=Asia/Tokyo
 
 APP_LOCALE=ja
 
+
 DB_CONNECTION=mysql
 
 DB_HOST=mysql
@@ -37,6 +38,24 @@ DDB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 
 DB_PASSWORD=laravel_pass
+
+
+MAIL_MAILER=smtp 
+
+MAIL_HOST=mailpit 
+
+MAIL_PORT=1025 
+
+MAIL_USERNAME=null 
+
+MAIL_PASSWORD=null 
+
+MAIL_ENCRYPTION=null 
+
+MAIL_FROM_ADDRESS=hello@example.com 
+
+MAIL_FROM_NAME="${APP_NAME}" 
+
 
 ## ⓷Docker コンテナのビルドと起動
 
@@ -74,9 +93,11 @@ $ php artisan storage:link
 
 $ php artisan migrate
 
+ INFO  Nothing to migrate.と表示された場合は、次に進んでください。
+
 ## ⑨phpMyAdmin の動作確認
 
-http://localhost:8080 にアクセスすることで、phpMyAdmin を確認できます。
+<http://localhost:8080> にアクセスすることで、phpMyAdmin を確認できます。
 
 ## ⓾ データベースのシーディング
 
@@ -86,32 +107,21 @@ $ php artisan migrate:fresh --seed
 
 ## ⑪ アプリケーションの動作確認
 
-http://localhost にアクセスすることで、アプリケーションが動作していることを確認できます。
+<http://localhost/items> にアクセスすることで、アプリケーションが動作していることを確認できます。
 
-もし、エラーとなった場合、以下のコマンドでディレクトリ書き込み権限を設定することで改善するか確認してください。
+もし、エラーとなった場合、ルートディレクトリで以下のコマンドを実行し、ディレクトリ書き込み権限を設定することで改善するか確認してください。
 
 sudo chmod -R 777 src/_　
-chmod -R 777 www/._ （PHP コンテナ内に入っている場合は、こちらを実行）
+
+（PHP コンテナ内に入っている場合は、以下を実行）
+
+chmod -R 777 www/._ 
 
 ## ⑫Mailpit の設定
 
-### ⑫-1. 　.env ファイルを開いて、以下の設定を変更します。
+### ⑫-1. 　 .env ファイルの修正
 
-MAIL_MAILER=smtp
-
-MAIL_HOST=mailpit
-
-MAIL_PORT=1025
-
-MAIL_USERNAME=null
-
-MAIL_PASSWORD=null
-
-MAIL_ENCRYPTION=null
-
-MAIL_FROM_ADDRESS=noreply@example.com
-
-MAIL_FROM_NAME="${APP_NAME}"
+⓶.env ファイルの作成にて完了済み。
 
 ### ⑫-2. 　 config/mail.php ファイルにて Mailpit の設定
 
@@ -150,12 +160,12 @@ return [
 ];
 
 以下のコマンドを実行  
-$ php artisan config:clear  
+$ php artisan config:clear   
 $ php artisan cache:clear
 
 ### ⑫-3. 　 Mailpit の動作確認
 
-http://localhost:8025 にアクセスすることで、Mailpit を確認できます。
+<http://localhost:8025> にアクセスすることで、Mailpit を確認できます。
 
 ## ⑬Stripe の設定
 
@@ -205,6 +215,33 @@ $ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 ### ⑭-3. 　 Fortify のサービスプロバイダを登録
 
 Laravel 11 では、Fortify はデフォルトでサービスプロバイダが登録されています。
+
+# アプリケーション使用時の注意点
+
+## ホーム画面のURLについて
+ホーム画面のURLは、<http://localhost/items>です。
+
+## ログインの試行について
+
+### ログイン時に必要なメールアドレスとパスワード
+シーディングによって、サンプルユーザーが10人作成されます。
+メールアドレス：<http://localhost:8080> にアクセスし、phpMyAdmin で確認できます。
+パスワード：すべてのサンプルユーザーのパスワードは「123456789」で統一しています。
+
+### メール認証について
+ログイン時に認証メールが届きます。
+<http://localhost:8025> にアクセスし、Mailpit でメールを確認できます。
+届いた認証メール本文の認証リンクをクリックすると、ログインが完了します。
+
+## 購入処理の試行について
+
+支払い方法を選択し、「購入する」ボタンを押すと、Stripeの決済画面に遷移します。
+
+カード払いの場合：<https://docs.stripe.com/testing?testing-method=card-numbers#cards>に記載の、テストカード情報を入力してください。
+コンビニ払いの場合：環境構築＞⑬Stripe の設定＞⑬- 1. Stripe アカウントの作成＞
+１．Stripe のダッシュボードで「コンビニ払い」を有効化　を行っていないと、コンビニ払いができません。
+また、コンビニ払いは、支払いの完了が確認できないため、Stripeの決済画面で手続きが終わっても、購入完了とならず、画面遷移しません。
+
 
 # 使用技術(実行環境)
 
