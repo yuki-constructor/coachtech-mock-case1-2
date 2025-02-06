@@ -8,11 +8,17 @@
 !/public/storage/app/public/
 !/public/storage/app/public/*
 !/public/storage/public/photos/
+!/public/storage/public/photos/item_images/
+!/public/storage/public/photos/logo_images/
+!/public/storage/public/photos/profile_images/
 /storage/*
 !/storage/app/
 !/storage/app/public/
 /storage/app/public/*
 !/storage/app/public/photos/
+!/storage/app/public/photos/item_images/
+!/storage/app/public/photos/logo_images/
+!/storage/app/public/photos/profile_images/
 # ▲追加
 /storage/*.key
 /storage/pail
@@ -32,4 +38,4 @@ yarn-error.log
 /.vscode
 /.zed
 # MySQL データファイルを無視
-docker/mysql/data/
+docker/mysql/data/*

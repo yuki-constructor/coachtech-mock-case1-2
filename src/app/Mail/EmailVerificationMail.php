@@ -28,23 +28,14 @@ class EmailVerificationMail extends Mailable
 
     public function build()
     {
-
-        // ▼▼▼▼▼▼▼▼▼▼▼▼
-
         if (!$this->user->email_verification_token) {
             // トークンを生成して保存
             $this->user->email_verification_token = Str::random(60);
             $this->user->save();
         }
-
-            //   ▲▲▲▲▲▲▲▲▲▲▲▲
-
-
-            return $this->subject('メール認証を完了してください')->view('emails.verify')->with([
-                'verificationUrl' => route('verification.verify', ['token' => $this->user->email_verification_token]),
-
-            ]);
-
+        return $this->subject('メール認証を完了してください')->view('emails.verify')->with([
+            'verificationUrl' => route('verification.verify', ['token' => $this->user->email_verification_token]),
+        ]);
     }
 
     /**
