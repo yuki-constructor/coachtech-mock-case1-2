@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use Laravel\?Fortify\Fortify; //呼び出す必要がない
+use Laravel\Fortify\Fortify;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
@@ -11,12 +11,6 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CommentController;
 
 use App\Models\Purchase;
-
-// Route::get('/register', function () {
-//     return view('auth/register');
-// });
-
-// Fortify::routes(); //呼び出す必要がない
 
 
 // ===================================================
@@ -61,10 +55,6 @@ Route::middleware('auth')->group(function () {
 
     // プロフィール登録処理
     Route::post('/profile/create', [ProfileController::class, 'store'])->name('profile.store');
-
-    // プロフィール画面
-    // Route::get('/profile/mypage/{id}', [ProfileController::class, 'show'])->name('profile.mypage');
-    // Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.show');
 
     // プロフィール画面(購入した商品)
     Route::get('/profile/show/buy', [ProfileController::class, 'showBuy'])->name('profile.show.buy');

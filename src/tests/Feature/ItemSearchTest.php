@@ -66,12 +66,6 @@ class ItemSearchTest extends TestCase
 
     public function test_search_by_name()
     {
-        // // テスト用のユーザーを作成
-        // $user = User::factory()->create();
-
-        // // ログイン状態を作成
-        // $this->actingAs($user);
-
         // 検索を行う（部分一致検索）
         $response = $this->get(route('items.search') . '?item_name=指');
 
@@ -84,18 +78,12 @@ class ItemSearchTest extends TestCase
     }
 
 
-
-
-
     // ===================================================
     //  （テスト内容）検索状態がマイリストでも保持されている
     // ===================================================
 
     public function test_search_in_mylist()
     {
-        // // テスト用のユーザーを作成
-        // $user = User::factory()->create();
-
         // ログイン状態を作成
         $this->actingAs($this->user);
 

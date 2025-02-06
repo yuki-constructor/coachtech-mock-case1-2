@@ -20,15 +20,12 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProfileTest extends TestCase
 {
-
     // データベーストランザクションを利用
     use DatabaseTransactions;
-
 
     // ===================================================
     //  （テスト内容）必要な情報が取得できる（プロフィール画像、ユーザー名、出品した商品一覧、購入した商品一覧）
     // ===================================================
-
     public function test_information_display_on_profile_page()
     {
         // ログインユーザーを作成

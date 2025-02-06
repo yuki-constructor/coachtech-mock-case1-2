@@ -63,8 +63,6 @@ class RegisterTest extends TestCase
             'パスワードが必須' => ['password', '', 'パスワードを入力してください'],
             'パスワードが７文字以下' => ['password', '123', 'パスワードは8文字以上で入力してください'],
             'パスワードが確認用パスワードと不一致' => ['password', '987654321', 'パスワードと一致しません'],
-            // 'パスワードが確認用パスワードと不一致' => ['password_confirmation', '987654321', 'パスワードと一致しません'],
-            // password_confirmation に、confirmed ルールを設定していないため（password_confirmation に、confirmed ルールを設定すると、パスワードと確認用パスワードが一致していても、バリデーションエラーとなるため、password に、confirmed ルールを設定しているため）password_confirmation のテストがエラーとなる。
         ];
     }
 
@@ -72,35 +70,6 @@ class RegisterTest extends TestCase
     //  （テスト内容）
     // 全ての項目が入力されている場合、会員情報が登録され、ログイン画面に遷移される
     // ===================================================
-
-    // public function test_user_registration()
-    // {
-    //     $response = $this->post(route('user.store'), [
-    //         'name' => 'test user',
-    //         'email' => 'user@example.com',
-    //         'password' => '123456789',
-    //         'password_confirmation' => '123456789',
-    //     ]); //仮のユーザーデータをusersテーブルに登録
-
-    //     $this->assertDatabaseHas('users', ['email' => 'test@example.com']);// データベースにユーザーが登録されたことを確認
-    //     $response->assertRedirect(route('login')); // ログイン画面へ遷移するか確認
-    // }
-
-
-    // public function test_user_registration()
-    // {
-    //     $userData = User::factory()->make()->toArray(); // 仮のユーザーデータを作成
-
-    //     $userData['password'] = '123456789'; // パスワードを追加
-    //     $userData['password_confirmation'] = '123456789'; // 確認用パスワードを追加
-
-    //     $response = $this->post(route('user.store'), $userData);// 仮のユーザーデータをusersテーブルに登録
-
-    //     $this->assertDatabaseHas('users', ['email' => $userData['email']]);
-    //     $response->assertRedirect(route('login'));
-    // }
-
-
     protected $userData;
 
     protected function setUp(): void

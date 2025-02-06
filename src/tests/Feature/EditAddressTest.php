@@ -117,12 +117,6 @@ class EditAddressTest extends TestCase
             'building' => 'テストビル(変更後2)'
         ]);
 
-        // // 購入処理を実行
-        // $response = $this->post(route('item.purchase.payment', ['itemId' => $item->id]), [
-        //     'payment_method' => 1, // クレジットカード
-        //     'stripe_payment_id' => 'test_stripe_123'
-        // ]);
-
         // 購入処理を実行
         $purchaseData = [
             'payment_method' => 'card',
@@ -135,9 +129,7 @@ class EditAddressTest extends TestCase
             'user_id' => $user->id,
             'item_id' => $item->id,
             'sending_address' => '〒222-2222 テスト住所(変更後2) テストビル(変更後2)',
-            // 'sending_address' => trim('〒' . trim($user->postal_code) . ' ' . trim($user->address) . ' ' . trim($user->building)),// 期待値もtrim()を適用
             'payment_method' => 1,
-            // 'stripe_payment_id' => 'test_stripe_123'
         ]);
     }
 }

@@ -14,8 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // ユーザーダミーデータを10件挿入
-        // User::factory(10)->create();
-        // UsersTableSeeder を呼び出す
         $this->call(UsersTableSeeder::class);
 
         // ItemsTableSeeder を呼び出す

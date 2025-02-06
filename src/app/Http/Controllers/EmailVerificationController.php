@@ -23,10 +23,10 @@ class EmailVerificationController extends Controller
                 $user->is_first_login = false;
                 $user->save();
 
-                return redirect()->route('profile.create'); // プロフィール登録ページにリダイレクト
+                // プロフィール登録ページにリダイレクト
+                return redirect()->route('profile.create');
             }
-            // メール認証成功後、元々アクセスしたページにリダイレクト
-            // return redirect()->intended();
+
             // メール認証成功後、商品一覧画面（マイリスト）ページにリダイレクト
             return to_route('items.index.mylist');
         }

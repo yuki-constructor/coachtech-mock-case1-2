@@ -38,14 +38,4 @@ class UserFactory extends Factory
             'is_first_login' => $this->faker->boolean,  // 初回ログインフラグ
         ];
     }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    // public function unverified(): static
-    // {
-    //     return $this->state(fn(array $attributes) => [
-    //         'email_verified_at' => null,
-    //     ]);
-    // }
 }

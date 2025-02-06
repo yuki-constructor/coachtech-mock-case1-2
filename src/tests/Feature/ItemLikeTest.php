@@ -108,8 +108,8 @@ class ItemLikeTest extends TestCase
             '</p>',
         ], false);
 
-         // いいねを解除しておく
-         $this->post(route('like', ['itemId' => $this->item->id]));
+        // いいねを解除しておく
+        $this->post(route('like', ['itemId' => $this->item->id]));
     }
 
 
@@ -135,14 +135,10 @@ class ItemLikeTest extends TestCase
         $this->user->refresh();
         $this->user->load('likeItem');
 
-        // デバッグ
-        // dd($this->user->likeItem);
-
         // 改めて商品詳細ページを開く
         $response = $this->get(route('item.show', ['itemId' => $this->item->id]));
 
         // いいね済みのアイコン(黄色の星)が表示されているか確認
-        // $response->assertSee('star-yellow.png');
         $response->assertSeeInOrder([
             '<img class="item-star"',
             'src="' . asset('storage/photos/logo_images/star-yellow.png') . '"'
@@ -175,6 +171,4 @@ class ItemLikeTest extends TestCase
             'item_id' => $this->item->id,
         ]);
     }
-
-
 }
